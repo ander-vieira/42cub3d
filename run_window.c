@@ -6,11 +6,12 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 13:29:43 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:11:40 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include "run_window.h"
 
 //TODO everything
 void	run_window(t_cubed *cubed)

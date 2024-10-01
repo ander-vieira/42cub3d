@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_map.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 17:11:51 by andeviei         ###   ########.fr       */
+/*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
+/*   Updated: 2024/10/01 17:11:43 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
-#include "parse_map.h"
+#ifndef PARSE_MAP_H
+# define PARSE_MAP_H
 
-//TODO everything
-t_bool	parse_map(t_str file, t_cubed *cubed)
-{
-	(void)file;
-	(void)cubed;
-	return (TRUE);
-}
+#endif
