@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubed.c                                            :+:      :+:    :+:   */
+/*   run_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 12:51:02 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 13:16:24 by andeviei         ###   ########.fr       */
+/*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
+/*   Updated: 2024/10/01 13:16:56 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	main(int argc, t_str *argv)
+//TODO everything
+void	run_window(t_cubed *cubed)
 {
-	t_cubed	cubed;
-
-	if (argc != 2)
-		return (print_error("Wrong number of arguments"), EXIT_FAILURE);
-	if (!parse_map(argv[1], &cubed))
-		return (EXIT_FAILURE);
-	run_window(&cubed);
-	return (EXIT_SUCCESS);
+	(void)cubed;
 }

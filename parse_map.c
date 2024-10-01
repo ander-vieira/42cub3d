@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubed.c                                            :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 12:51:02 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 13:16:24 by andeviei         ###   ########.fr       */
+/*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
+/*   Updated: 2024/10/01 13:16:52 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	main(int argc, t_str *argv)
+//TODO everything
+t_bool	parse_map(t_str file, t_cubed *cubed)
 {
-	t_cubed	cubed;
-
-	if (argc != 2)
-		return (print_error("Wrong number of arguments"), EXIT_FAILURE);
-	if (!parse_map(argv[1], &cubed))
-		return (EXIT_FAILURE);
-	run_window(&cubed);
-	return (EXIT_SUCCESS);
+	(void)file;
+	(void)cubed;
+	return (TRUE);
 }

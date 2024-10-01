@@ -6,13 +6,13 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:52:33 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 12:57:40 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:11:40 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static void print_string(t_fd fd, char *str)
+static void	print_string(t_fd fd, t_str str)
 {
 	size_t	len;
 
@@ -25,7 +25,7 @@ static void print_string(t_fd fd, char *str)
 }
 
 //TODO use strerror when str = NULL
-void	print_error(char *str)
+void	print_error(t_str str)
 {
 	if (str == NULL)
 		str = strerror(errno);
