@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:50:59 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 13:14:53 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:29:28 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+# include "mlx/mlx.h"
 
 typedef enum e_bool
 {
