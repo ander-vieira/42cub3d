@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   run_window.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/02 21:58:31 by andeviei         ###   ########.fr       */
+/*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
+/*   Updated: 2024/10/02 21:58:23 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#ifndef RUN_WINDOW_H
+# define RUN_WINDOW_H
 
-//TODO everything
-t_bool	parse_map(t_str file, t_cubed *cubed)
-{
-	(void)file;
-	(void)cubed;
-	return (TRUE);
-}
+# include "typedefs.h"
+
+/* ************************************************************************** */
+/* Module main function                                                       */
+/* ************************************************************************** */
+
+void	run_window(t_cubed *cubed);
+
+#endif

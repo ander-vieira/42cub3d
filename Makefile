@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2024/10/01 13:33:06 by andeviei         ###   ########.fr        #
+#    Updated: 2024/10/01 16:45:49 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,4 +36,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norm:
+	norminette $(SRCS) $(HDRS)
+
+.PHONY: all clean fclean re norm
