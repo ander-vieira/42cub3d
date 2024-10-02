@@ -6,11 +6,19 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 17:11:43 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:58:26 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_MAP_H
 # define PARSE_MAP_H
+
+# include "typedefs.h"
+
+/* ************************************************************************** */
+/* Module main function                                                       */
+/* ************************************************************************** */
+
+t_bool	parse_map(t_str file, t_cubed *cubed);
 
 #endif
