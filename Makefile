@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2024/10/14 23:20:45 by andeviei         ###   ########.fr        #
+#    Updated: 2024/10/15 18:26:02 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS =	cubed.c \
 		handler_loop.c \
 		parse_map.c \
 		print_error.c \
-		run_window.c
+		run_window.c \
+		vec2.c
 
 HDRS =	cubed.h \
 		parse_map.h \
