@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_window.c                                       :+:      :+:    :+:   */
+/*   handler_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/14 23:16:07 by andeviei         ###   ########.fr       */
+/*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
+/*   Updated: 2024/10/14 23:10:20 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_window.h"
 
-//TODO everything
-void	run_window(t_cubed *cubed)
+int	handler_loop(t_runwn *runwn)
 {
-	t_runwn	runwn;
-
-	runwn.cubed = cubed;
-	runwn.mlx = mlx_init();
-	runwn.win = mlx_new_window(runwn.mlx, 800, 600, "HOLA MUNDO");
-	mlx_loop_hook(runwn.mlx, &handler_loop, &runwn);
-	mlx_hook(runwn.win, EVT_KEYDN, 0x1, (void *)&handler_keydn, &runwn);
-	mlx_hook(runwn.win, EVT_DSTRY, 0, (void *)&handler_dstry, &runwn);
-	mlx_loop(runwn.mlx);
+	(void)runwn;
+	return (0);
 }

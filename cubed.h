@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:50:59 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/02 21:57:47 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/14 23:06:28 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-# include "mlx/mlx.h"
 
 /* ************************************************************************** */
 /* Other header includes                                                      */
