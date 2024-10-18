@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:35 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/14 23:10:12 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:19:19 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	handler_dstry(t_runwn *runwn)
 {
-	(void)runwn;
-	exit(EXIT_SUCCESS);
+	end_program(runwn);
 	return (0);
 }

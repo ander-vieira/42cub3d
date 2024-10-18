@@ -6,11 +6,20 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:21:39 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/15 18:25:28 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:28:15 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_window.h"
+#include "cubed.h"
+
+t_vec2	vec2_init(double x, double y)
+{
+	t_vec2	v;
+
+	v.x = x;
+	v.y = y;
+	return (v);
+}
 
 t_vec2	vec2_add(t_vec2 v1, t_vec2 v2)
 {

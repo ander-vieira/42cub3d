@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/02 21:57:01 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:26:21 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_vec2
 typedef struct s_map
 {
 	char	*tiles;
-	t_uint	x;
-	t_uint	y;
+	t_uint	w;
+	t_uint	h;
 }						t_map;
 
 typedef struct s_cubed

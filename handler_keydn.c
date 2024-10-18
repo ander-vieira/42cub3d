@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/15 18:31:35 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:19:27 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 
 int	handler_keydn(int keycode, t_runwn *runwn)
 {
-	(void)runwn;
 	if (keycode == KEY_ESC)
-		exit(EXIT_SUCCESS);
+		end_program(runwn);
 	else if (keycode == KEY_W)
 		printf("PRESSED W\n");
 	else if (keycode == KEY_S)

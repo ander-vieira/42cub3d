@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/15 18:44:33 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:24:46 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 # include "typedefs.h"
 
-# define WIN_W		800
-# define WIN_H		600
+# define WIN_W		1920
+# define WIN_H		1080
 
 # define EVT_KEYDN	2
 # define EVT_DSTRY	17
@@ -34,6 +34,9 @@
 # define KEY_A		97
 # define KEY_S		115
 # define KEY_D		100
+
+# define TEX_W		32
+# define TEX_H		32
 
 typedef struct s_imgdw
 {
@@ -49,11 +52,19 @@ typedef struct s_runwn
 	t_cubed	*cubed;
 	void	*mlx;
 	void	*win;
+	void	*img_f;
+	void	*img_c;
 }	t_runwn;
+
+void	*img_load(void *mlx, char *file);
+void	*img_rect(void *mlx, int color, t_uint w, t_uint h);
+void	img_free(void *mlx, void *img);
 
 int		handler_dstry(t_runwn *runwn);
 int		handler_keydn(int keycode, t_runwn *runwn);
 int		handler_loop(t_runwn *runwn);
+
+void	end_program(t_runwn *runwn);
 
 /* ************************************************************************** */
 /* Module main function                                                       */
