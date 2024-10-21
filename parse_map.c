@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: columbux <columbux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/13 13:04:34 by columbux         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:20:23 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+t_bool	check_file_extension(t_str file)
+{
+	if (ft_strlen(file) > 4 && \
+		(ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) == 0))
+		return(TRUE);
+	else
+		return(FALSE);
+}
 
 //TODO everything
 /* t_bool	parse_map(t_str file, t_cubed *cubed)
