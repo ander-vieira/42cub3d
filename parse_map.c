@@ -3,22 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/15 16:20:23 by alex             ###   ########.fr       */
+/*   Updated: 2024/12/04 15:33:47 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO move these functions to the appropriate place
+size_t	ft_strlen(t_str str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
+}
+
+t_bool	ft_strcmp(t_str str1, t_str str2)
+{
+	size_t	i;
+
+	i = 0;
+	while (str1[i] != '\0' && str2[i] != '\0')
+	{
+		if (str1[i] != str2[i])
+			return (FALSE);
+		i++;
+	}
+	if (str1[i] != str2[i])
+		return (FALSE);
+	return (TRUE);	
+}
+
 t_bool	check_file_extension(t_str file)
 {
-	if (ft_strlen(file) > 4 && \
-		(ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) == 0))
-		return(TRUE);
+	if (ft_strlen(file) > 4 && ft_strcmp(file + ft_strlen(file) - 4, ".cub"))
+		return (TRUE);
 	else
-		return(FALSE);
+		return (FALSE);
 }
 
 //TODO everything
@@ -46,7 +72,7 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 	char		buffer[1024];
 	int			bytes_leidos;
 	int			total_caracteres;
-	int			columnas_temp;
+	t_uint		columnas_temp;
 	int			i;
 	char 		*temp_tiles;
 
@@ -59,8 +85,8 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 		return (FALSE);
 	}
 	map = &cubed->map;
-	map->x = 0;
-	map->y = 0;
+	map->w = 0;
+	map->h = 0;
 	map->tiles = NULL;
 	temp_tiles = NULL;
 	// Leer y procesar el archivo en una sola pasada
@@ -71,10 +97,10 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 		{
 			if (buffer[i] == '\n')
 			{
-				map->y++;
+				map->h++;
 				// Actualizamos columnas máximas
-				if (columnas_temp > map->x)
-					map->x = columnas_temp;
+				if (columnas_temp > map->w)
+					map->w = columnas_temp;
 				columnas_temp = 0;
 			}
 			else
@@ -97,9 +123,9 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
     // Maneja el caso de que no haya nueva linea al final
 	if (columnas_temp > 0)
 	{
-		map->y++;
-		if (columnas_temp > map->x)
-			map->x = columnas_temp;
+		map->h++;
+		if (columnas_temp > map->w)
+			map->w = columnas_temp;
 	}
 	map->tiles = temp_tiles;
 	close(fd);

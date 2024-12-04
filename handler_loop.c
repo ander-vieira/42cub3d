@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 15:21:25 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:35:12 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@
 // 		}
 // 		else
 // 		{
-			
 // 		}
 // 	}
 // }
@@ -60,17 +59,17 @@
 static void	draw_view(t_runwn *runwn)
 {
 	size_t	x;
-	static void	*img;
+	void	*img;
 
-	if (img == NULL)
-		img = img_rect(runwn->mlx, 0x00000000, 5, 200);
+	img = img_rect(runwn->mlx, 0x00000000, 5, 200);
 	x = 0;
 	while (x < WIN_W / 5)
 	{
-		mlx_put_image_to_window(runwn->mlx, runwn->win, img, 5 * x, WIN_H / 2 - 100);
+		mlx_put_image_to_window(runwn->mlx, runwn->win,
+			img, 5 * x, WIN_H / 2 - 100);
 		x++;
 	}
-	// img_free(runwn->mlx, img);
+	img_free(runwn->mlx, img);
 }
 
 int	handler_loop(t_runwn *runwn)
