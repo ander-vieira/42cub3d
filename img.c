@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:35:06 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/16 13:12:37 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:25:34 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	*img_rect(void *mlx, int color, t_uint w, t_uint h)
 	imgdw.img = mlx_new_image(mlx, w, h);
 	imgdw.addr = mlx_get_data_addr(imgdw.img, &(imgdw.bpp),
 			&(imgdw.line_w), &(imgdw.endian));
+	imgdw.bpp /= 8;
 	i = 0;
 	while (i < WIN_W)
 	{
@@ -42,7 +43,7 @@ void	*img_rect(void *mlx, int color, t_uint w, t_uint h)
 		while (j < WIN_H / 2)
 		{
 			*((unsigned int *)(imgdw.addr
-						+ (j * imgdw.line_w + i * imgdw.bpp / 8))) = color;
+						+ j * imgdw.line_w + i * imgdw.bpp)) = color;
 			j++;
 		}
 		i++;

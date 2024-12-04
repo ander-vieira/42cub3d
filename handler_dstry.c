@@ -6,11 +6,11 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:35 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/16 13:19:19 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:34:40 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_window.h"
+#include "cubed.h"
 
 int	handler_dstry(t_runwn *runwn)
 {

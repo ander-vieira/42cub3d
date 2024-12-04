@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/16 13:24:46 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:11:09 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 # include "typedefs.h"
 
-# define WIN_W		1920
-# define WIN_H		1080
+# define WIN_W		800
+# define WIN_H		600
 
 # define EVT_KEYDN	2
 # define EVT_DSTRY	17
