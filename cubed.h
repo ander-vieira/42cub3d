@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:50:59 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/16 13:26:57 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:08:05 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	map_free(t_map *map);
 char	map_get(t_map *map, t_uint x, t_uint y);
 void	map_set(t_map *map, t_uint x, t_uint y, char tile);
 void	map_print(t_map *map);
+
+t_ivec2 ivec2_new(t_uint x, t_uint y);
+t_ivec2 ivec2_add(t_ivec2 v1, t_ivec2 v2);
 
 t_vec2	vec2_init(double x, double y);
 t_vec2	vec2_add(t_vec2 v1, t_vec2 v2);

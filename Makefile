@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2024/10/16 13:14:02 by andeviei         ###   ########.fr        #
+#    Updated: 2024/12/04 16:26:48 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	cubed.c \
 		handler_keydn.c \
 		handler_loop.c \
 		img.c \
+		ivec2.c \
 		map.c \
 		parse_map.c \
 		print_error.c \
@@ -36,7 +37,7 @@ MLX = mlx/libmlx_Linux.a
 all: $(NAME)
 
 $(NAME): $(MLX) $(SRCS) $(HDRS)
-	gcc $(CFLAGS) $(SRCS) $(MLX) -o $(NAME) -lXext -lX11
+	gcc $(CFLAGS) $(SRCS) $(MLX) -o $(NAME) -lm -lXext -lX11
 
 $(MLX):
 	make -C $(MLX_DIR) all
