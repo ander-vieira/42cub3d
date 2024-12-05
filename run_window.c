@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 19:27:58 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:13:06 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	runwn_init(t_runwn *runwn, t_cubed *cubed)
 	runwn->cubed->dir = vec2_init(1, 0);
 	map_init(&(runwn->cubed->map), 5, 5);
 	init_empty_map(&(runwn->cubed->map));
-	map_set(&(runwn->cubed->map), 4, 2, '0');
+	map_set(&(runwn->cubed->map), 1, 1, '1');
 	map_print(&(runwn->cubed->map));
 	runwn->mlx = mlx_init();
 	runwn->scr = img_new(runwn->mlx, ivec2_new(WIN_W, WIN_H));

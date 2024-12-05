@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 23:41:12 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static t_uint	get_height(t_runwn *runwn, t_uint x)
 {
-	t_vec2	dir;
+	t_dvec	dir;
 	double	x0;
 	double	dx;
 	double	y0;
 	double	dy;
 	double	slope;
 	double	total;
-	t_ivec2	tile;
+	t_lvec	tile;
+	double	dist;
 
 	slope = 2 * (double)x / WIN_W - 1;
 	total = sqrt(slope*slope + 1);
@@ -53,17 +54,13 @@ static t_uint	get_height(t_runwn *runwn, t_uint x)
 	}
 	while (TRUE)
 	{
-		t_vec2 v1;
 		if (y0 < x0)
 		{
 			if (dir.y > 0)
 				tile.y += 1;
 			else
 				tile.y -= 1;
-			v1.x = runwn->cubed->pos.x + y0 * dir.x;
-			v1.y = runwn->cubed->pos.y + y0 * dir.y;
-			if (map_get(&(runwn->cubed->map), tile.x, tile.y) == '1')
-				return (round(100. * total / y0));
+			dist = y0;
 			y0 += dy;
 		}
 		else
@@ -72,20 +69,19 @@ static t_uint	get_height(t_runwn *runwn, t_uint x)
 				tile.x += 1;
 			else
 				tile.x -= 1;
-			v1.x = runwn->cubed->pos.x + x0 * dir.x;
-			v1.y = runwn->cubed->pos.y + x0 * dir.y;
-			if (map_get(&(runwn->cubed->map), tile.x, tile.y) == '1')
-				return (round(100. * total / x0));
+			dist = x0;
 			x0 += dx;
 		}
-		if (v1.x < 0 || v1.x >= runwn->cubed->map.w || v1.y < 0 || v1.y >= runwn->cubed->map.h)
+		if (tile.x < 0 || tile.x >= runwn->cubed->map.w || tile.y < 0 || tile.y >= runwn->cubed->map.h)
 			return (0);
+		else if (map_get(&(runwn->cubed->map), tile.x, tile.y) == '1')
+			return (round(100. * total / dist));
 	}
 }
 
 static void	draw_view(t_runwn *runwn)
 {
-	t_ivec2	col;
+	t_lvec	col;
 
 	img_fill(runwn->scr, runwn->cubed->color_c, ivec2_new(0, 0), ivec2_new(WIN_W, WIN_H / 2));
 	img_fill(runwn->scr, runwn->cubed->color_f, ivec2_new(0, WIN_H / 2), ivec2_new(WIN_W, WIN_H / 2));

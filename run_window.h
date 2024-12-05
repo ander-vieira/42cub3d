@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 16:22:15 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct s_runwn
 }	t_runwn;
 
 void	*img_load(void *mlx, char *file);
-void	*img_new(void *mlx, t_ivec2 dim);
+void	*img_new(void *mlx, t_lvec dim);
 void	img_free(void *mlx, void *img);
-void	img_fill(void *img, t_uint color, t_ivec2 pos, t_ivec2 dim);
-void	img_put(void *img1, void *img2, t_ivec2 pos, t_ivec2 dim);
+void	img_fill(void *img, t_uint color, t_lvec pos, t_lvec dim);
+void	img_put(void *img1, void *img2, t_lvec pos, t_lvec dim);
 
 int		handler_dstry(t_runwn *runwn);
 int		handler_keydn(int keycode, t_runwn *runwn);

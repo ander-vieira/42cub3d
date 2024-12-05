@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:50:59 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 16:08:05 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char	map_get(t_map *map, t_uint x, t_uint y);
 void	map_set(t_map *map, t_uint x, t_uint y, char tile);
 void	map_print(t_map *map);
 
-t_ivec2 ivec2_new(t_uint x, t_uint y);
-t_ivec2 ivec2_add(t_ivec2 v1, t_ivec2 v2);
+t_lvec ivec2_new(t_uint x, t_uint y);
+t_lvec ivec2_add(t_lvec v1, t_lvec v2);
 
-t_vec2	vec2_init(double x, double y);
-t_vec2	vec2_add(t_vec2 v1, t_vec2 v2);
-t_vec2	vec2_sub(t_vec2 v1, t_vec2 v2);
-double	vec2_scalar(t_vec2 v1, t_vec2 v2);
-t_vec2	vec2_inv(t_vec2 v1);
-t_vec2	vec2_normal(t_vec2 v1);
+t_dvec	vec2_init(double x, double y);
+t_dvec	vec2_add(t_dvec v1, t_dvec v2);
+t_dvec	vec2_sub(t_dvec v1, t_dvec v2);
+double	vec2_scalar(t_dvec v1, t_dvec v2);
+t_dvec	vec2_inv(t_dvec v1);
+t_dvec	vec2_normal(t_dvec v1);
 
 #endif

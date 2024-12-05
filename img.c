@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:35:06 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 16:40:27 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*img_load(void *mlx, char *file)
 	return (img);
 }
 
-void	*img_new(void *mlx, t_ivec2 dim)
+void	*img_new(void *mlx, t_lvec dim)
 {
 	return (mlx_new_image(mlx, dim.x, dim.y));
 }
@@ -50,15 +50,15 @@ static t_uint	*pxaddr(t_imgdw dw, t_uint x, t_uint y)
 	return ((t_uint *)(dw.addr + y * dw.line_w + x * dw.bpp));
 }
 
-void	img_px(void *img, t_uint color, t_ivec2 pos)
+void	img_px(void *img, t_uint color, t_lvec pos)
 {
 	*pxaddr(img_getdw(img), pos.x, pos.y) = color;
 }
 
-void	img_fill(void *img, t_uint color, t_ivec2 pos, t_ivec2 dim)
+void	img_fill(void *img, t_uint color, t_lvec pos, t_lvec dim)
 {
 	t_imgdw	dw;
-	t_ivec2	v;
+	t_lvec	v;
 
 	dw = img_getdw(img);
 	v.x = 0;
@@ -74,11 +74,11 @@ void	img_fill(void *img, t_uint color, t_ivec2 pos, t_ivec2 dim)
 	}
 }
 
-void	img_put(void *img1, void *img2, t_ivec2 pos, t_ivec2 dim)
+void	img_put(void *img1, void *img2, t_lvec pos, t_lvec dim)
 {
 	t_imgdw	dw1;
 	t_imgdw	dw2;
-	t_ivec2	v;
+	t_lvec	v;
 
 	dw1 = img_getdw(img1);
 	dw2 = img_getdw(img2);

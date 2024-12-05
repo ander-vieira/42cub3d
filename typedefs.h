@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 15:25:28 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:29 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
 typedef char			*t_str;
 
-typedef struct s_ivec2
+typedef struct s_lvec
 {
-	size_t	x;
-	size_t	y;
-}						t_ivec2;
+	long	x;
+	long	y;
+}						t_lvec;
 
-typedef struct s_vec2
+typedef struct s_dvec
 {
 	double	x;
 	double	y;
-}						t_vec2;
+}						t_dvec;
 
 typedef struct s_map
 {
@@ -57,8 +57,8 @@ typedef struct s_cubed
 	int		color_f;
 	int		color_c;
 	t_map	map;
-	t_vec2	pos;
-	t_vec2	dir;
+	t_dvec	pos;
+	t_dvec	dir;
 }						t_cubed;
 
 #endif

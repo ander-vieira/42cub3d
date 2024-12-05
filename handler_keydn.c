@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/04 23:09:49 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:11:11 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	handler_keydn(int keycode, t_runwn *runwn)
 {
-	t_vec2 dir;
+	t_dvec dir;
 
 	if (keycode == KEY_ESC)
 		end_program(runwn);
