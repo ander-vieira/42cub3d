@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:20:09 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:48:07 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define TEX_W		32
 # define TEX_H		32
 
+# define STEP_DIST	0.2
+# define TURN_ANGLE	0.08726646259
+
 typedef struct s_imgdw
 {
 	void	*img;
@@ -47,9 +50,27 @@ typedef struct s_imgdw
 	int		endian;
 }	t_imgdw;
 
+typedef struct s_castd
+{
+	double	scale;
+	t_lvec	tile;
+	double	dist_x;
+	double	delta_x;
+	t_bool	n_x;
+	double	dist_y;
+	double	delta_y;
+	t_bool	n_y;
+}	t_castd;
+
+typedef struct s_castr
+{
+	double	dist;
+	t_lvec	tile;
+}	t_castr;
+
 typedef struct s_run
 {
-	t_cubed	*cubed;
+	t_cubed	*cub;
 	void	*mlx;
 	void	*win;
 	void	*scr;

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:27:58 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:42:17 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ t_lvec	lvec_add(t_lvec v1, t_lvec v2);
 
 t_dvec	dvec_new(double x, double y);
 t_dvec	dvec_add(t_dvec v1, t_dvec v2);
-t_dvec	dvec_sub(t_dvec v1, t_dvec v2);
-double	dvec_dot(t_dvec v1, t_dvec v2);
-t_dvec	dvec_inv(t_dvec v1);
-t_dvec	dvec_nrm(t_dvec v1);
+t_dvec	dvec_scl(t_dvec v, double scale);
+t_dvec	dvec_nrm(t_dvec v);
+t_dvec	dvec_rot(t_dvec v, double angle);
 
 t_bool	map_init(t_map *map, t_lvec dim);
 void	map_free(t_map *map);
+t_bool	map_has(t_map *map, t_lvec pos);
 char	map_get(t_map *map, t_lvec pos);
 void	map_set(t_map *map, t_lvec pos, char tile);
 void	map_print(t_map *map);
