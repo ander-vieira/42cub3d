@@ -6,13 +6,13 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:05:29 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:16:35 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-t_lvec ivec2_new(t_uint x, t_uint y)
+t_lvec lvec_new(t_uint x, t_uint y)
 {
 	t_lvec	v;
 
@@ -21,7 +21,7 @@ t_lvec ivec2_new(t_uint x, t_uint y)
 	return (v);
 }
 
-t_lvec ivec2_add(t_lvec v1, t_lvec v2)
+t_lvec lvec_add(t_lvec v1, t_lvec v2)
 {
 	t_lvec	v;
 

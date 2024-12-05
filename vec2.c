@@ -6,13 +6,13 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:21:39 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:11:11 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:15:35 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-t_dvec	vec2_init(double x, double y)
+t_dvec	dvec_new(double x, double y)
 {
 	t_dvec	v;
 
@@ -21,7 +21,7 @@ t_dvec	vec2_init(double x, double y)
 	return (v);
 }
 
-t_dvec	vec2_add(t_dvec v1, t_dvec v2)
+t_dvec	dvec_add(t_dvec v1, t_dvec v2)
 {
 	t_dvec	v;
 
@@ -30,7 +30,7 @@ t_dvec	vec2_add(t_dvec v1, t_dvec v2)
 	return (v);
 }
 
-t_dvec	vec2_sub(t_dvec v1, t_dvec v2)
+t_dvec	dvec_sub(t_dvec v1, t_dvec v2)
 {
 	t_dvec	v;
 
@@ -39,12 +39,12 @@ t_dvec	vec2_sub(t_dvec v1, t_dvec v2)
 	return (v);
 }
 
-double	vec2_scalar(t_dvec v1, t_dvec v2)
+double	dvec_dot(t_dvec v1, t_dvec v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y);
 }
 
-t_dvec	vec2_inv(t_dvec v1)
+t_dvec	dvec_inv(t_dvec v1)
 {
 	t_dvec	v;
 
@@ -53,7 +53,7 @@ t_dvec	vec2_inv(t_dvec v1)
 	return (v);
 }
 
-t_dvec	vec2_normal(t_dvec v1)
+t_dvec	dvec_nrm(t_dvec v1)
 {
 	t_dvec	v;
 

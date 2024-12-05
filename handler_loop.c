@@ -6,13 +6,13 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:23:40 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static t_uint	get_height(t_runwn *runwn, t_uint x)
+static t_uint	get_height(t_run *r, t_uint x)
 {
 	t_dvec	dir;
 	double	x0;
@@ -26,30 +26,30 @@ static t_uint	get_height(t_runwn *runwn, t_uint x)
 
 	slope = 2 * (double)x / WIN_W - 1;
 	total = sqrt(slope*slope + 1);
-	dir = vec2_init(runwn->cubed->dir.x / total - runwn->cubed->dir.y * slope / total,
-		runwn->cubed->dir.y / total + runwn->cubed->dir.x * slope / total);
+	dir = dvec_new(r->cubed->dir.x / total - r->cubed->dir.y * slope / total,
+		r->cubed->dir.y / total + r->cubed->dir.x * slope / total);
 	if (dir.x < 0)
 	{
-		tile.x = floor(runwn->cubed->pos.x);
-		x0 = (floor(runwn->cubed->pos.x) - runwn->cubed->pos.x) / dir.x;
+		tile.x = floor(r->cubed->pos.x);
+		x0 = (floor(r->cubed->pos.x) - r->cubed->pos.x) / dir.x;
 		dx = -1 / dir.x;
 	}
 	else
 	{
-		tile.x = floor(runwn->cubed->pos.x);
-		x0 = (ceil(runwn->cubed->pos.x) - runwn->cubed->pos.x) / dir.x;
+		tile.x = floor(r->cubed->pos.x);
+		x0 = (ceil(r->cubed->pos.x) - r->cubed->pos.x) / dir.x;
 		dx = 1 / dir.x;
 	}
 	if (dir.y < 0)
 	{
-		tile.y = floor(runwn->cubed->pos.y);
-		y0 = (floor(runwn->cubed->pos.y) - runwn->cubed->pos.y) / dir.y;
+		tile.y = floor(r->cubed->pos.y);
+		y0 = (floor(r->cubed->pos.y) - r->cubed->pos.y) / dir.y;
 		dy = -1 / dir.y;
 	}
 	else
 	{
-		tile.y = floor(runwn->cubed->pos.y);
-		y0 = (ceil(runwn->cubed->pos.y) - runwn->cubed->pos.y) / dir.y;
+		tile.y = floor(r->cubed->pos.y);
+		y0 = (ceil(r->cubed->pos.y) - r->cubed->pos.y) / dir.y;
 		dy = 1 / dir.y;
 	}
 	while (TRUE)
@@ -72,33 +72,33 @@ static t_uint	get_height(t_runwn *runwn, t_uint x)
 			dist = x0;
 			x0 += dx;
 		}
-		if (tile.x < 0 || tile.x >= runwn->cubed->map.w || tile.y < 0 || tile.y >= runwn->cubed->map.h)
+		if (tile.x < 0 || tile.x >= r->cubed->map.w || tile.y < 0 || tile.y >= r->cubed->map.h)
 			return (0);
-		else if (map_get(&(runwn->cubed->map), tile.x, tile.y) == '1')
+		else if (map_get(&(r->cubed->map), tile) == '1')
 			return (round(100. * total / dist));
 	}
 }
 
-static void	draw_view(t_runwn *runwn)
+static void	draw_view(t_run *r)
 {
 	t_lvec	col;
 
-	img_fill(runwn->scr, runwn->cubed->color_c, ivec2_new(0, 0), ivec2_new(WIN_W, WIN_H / 2));
-	img_fill(runwn->scr, runwn->cubed->color_f, ivec2_new(0, WIN_H / 2), ivec2_new(WIN_W, WIN_H / 2));
+	img_fill(r->scr, r->cubed->color_c, lvec_new(0, 0), lvec_new(WIN_W, WIN_H / 2));
+	img_fill(r->scr, r->cubed->color_f, lvec_new(0, WIN_H / 2), lvec_new(WIN_W, WIN_H / 2));
 	col.x = 0;
 	while (col.x < WIN_W)
 	{
-		col.y = get_height(runwn, col.x);
+		col.y = get_height(r, col.x);
 		if (col.y > WIN_H / 2)
 			col.y = WIN_H / 2;
-		img_fill(runwn->scr, 0x00000000, ivec2_new(col.x, WIN_H / 2 - col.y), ivec2_new(1, 2 * col.y));
+		img_fill(r->scr, 0x00000000, lvec_new(col.x, WIN_H / 2 - col.y), lvec_new(1, 2 * col.y));
 		col.x++;
 	}
-	mlx_put_image_to_window(runwn->mlx, runwn->win, runwn->scr, 0, 0);
+	mlx_put_image_to_window(r->mlx, r->win, r->scr, 0, 0);
 }
 
-int	handler_loop(t_runwn *runwn)
+int	handler_loop(t_run *r)
 {
-	draw_view(runwn);
+	draw_view(r);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 10:11:24 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:20:09 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ typedef struct s_imgdw
 	int		endian;
 }	t_imgdw;
 
-typedef struct s_runwn
+typedef struct s_run
 {
 	t_cubed	*cubed;
 	void	*mlx;
 	void	*win;
 	void	*scr;
-}	t_runwn;
+}	t_run;
 
 void	*img_load(void *mlx, char *file);
 void	*img_new(void *mlx, t_lvec dim);
@@ -61,11 +61,11 @@ void	img_free(void *mlx, void *img);
 void	img_fill(void *img, t_uint color, t_lvec pos, t_lvec dim);
 void	img_put(void *img1, void *img2, t_lvec pos, t_lvec dim);
 
-int		handler_dstry(t_runwn *runwn);
-int		handler_keydn(int keycode, t_runwn *runwn);
-int		handler_loop(t_runwn *runwn);
+int		handler_dstry(t_run *r);
+int		handler_keydn(int keycode, t_run *r);
+int		handler_loop(t_run *r);
 
-void	end_program(t_runwn *runwn);
+void	end_program(t_run *r);
 
 /* ************************************************************************** */
 /* Module main function                                                       */
