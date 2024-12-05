@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:23:58 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:31:11 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_cubed
 	t_color	color_f;
 	t_color	color_c;
 	t_map	map;
-	t_dvec	pos;
-	t_dvec	dir;
+	t_lvec	pos;
+	t_lvec	dir;
 }						t_cubed;
 
 t_lvec	lvec_new(long x, long y);

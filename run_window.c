@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:48:33 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:33:27 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,26 @@ static void	load_images(t_run *r)
 }
 
 //TODO remove hardcoded stuff
-static void	runwn_init(t_run *r, t_cubed *cubed)
+static void	hardcode(t_cubed *cub)
 {
-	r->cub = cubed;
-	r->cub->color_c = 0x003a75c3;
-	r->cub->color_f = 0x00f9dd17;
-	r->cub->tex_n = "textures/north.xpm";
-	r->cub->tex_e = "textures/east.xpm";
-	r->cub->tex_s = "textures/south.xpm";
-	r->cub->tex_w = "textures/west.xpm";
-	r->cub->pos = dvec_new(2.5, 2.5);
-	r->cub->dir = dvec_new(0, -1);
-	map_init(&(r->cub->map), lvec_new(5, 5));
-	init_empty_map(&(r->cub->map));
-	map_print(&(r->cub->map));
+	cub->color_c = 0x003a75c3;
+	cub->color_f = 0x00f9dd17;
+	cub->tex_n = "textures/north.xpm";
+	cub->tex_e = "textures/east.xpm";
+	cub->tex_s = "textures/south.xpm";
+	cub->tex_w = "textures/west.xpm";
+	cub->pos = lvec_new(1, 1);
+	cub->dir = lvec_new(0, -1);
+	map_init(&(cub->map), lvec_new(4, 4));
+	init_empty_map(&(cub->map));
+	map_print(&(cub->map));
+}
+
+static void	runwn_init(t_run *r, t_cubed *cub)
+{
+	r->cub = cub;
+	r->pos = dvec_new(r->cub->pos.x + 0.5, r->cub->pos.y + 0.5);
+	r->dir = dvec_new(r->cub->dir.x, r->cub->dir.y);
 	r->mlx = mlx_init();
 	r->scr = img_new(r->mlx, lvec_new(WIN_W, WIN_H));
 	load_images(r);
@@ -70,11 +76,12 @@ void	end_program(t_run *r)
 	exit(EXIT_SUCCESS);
 }
 
-void	run_window(t_cubed *cubed)
+void	run_window(t_cubed *cub)
 {
 	t_run	r;
 
-	runwn_init(&r, cubed);
+	hardcode(cub);
+	runwn_init(&r, cub);
 	mlx_loop_hook(r.mlx, &handler_loop, &r);
 	mlx_hook(r.win, EVT_KEYDN, 0x1, (void *)&handler_keydn, &r);
 	mlx_hook(r.win, EVT_DSTRY, 0, (void *)&handler_dstry, &r);

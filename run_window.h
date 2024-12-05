@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:06:39 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:40:46 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 
 # define STEP_DIST	0.2
 # define TURN_ANGLE	0.08726646259
+# define WALL_SCALE	300
 
 typedef enum e_side
 {
@@ -89,6 +90,8 @@ typedef struct s_castc
 typedef struct s_run
 {
 	t_cubed	*cub;
+	t_dvec	pos;
+	t_dvec	dir;
 	void	*mlx;
 	void	*win;
 	void	*scr;

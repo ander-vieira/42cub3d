@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 13:48:30 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:29:57 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	handler_keydn(int keycode, t_run *r)
 	t_dvec	*pos;
 	t_dvec	*dir;
 
-	pos = &(r->cub->pos);
-	dir = &(r->cub->dir);
+	pos = &(r->pos);
+	dir = &(r->dir);
 	if (keycode == KEY_ESC)
 		end_program(r);
 	else if (keycode == KEY_W)

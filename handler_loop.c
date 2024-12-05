@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:22:04 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:24:29 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static void	draw_column(t_run *r, long x, t_castc c)
 	cnv_scr = img_cnv(r->scr);
 	if (c.side == SIDE_N)
 		cnv_tex = img_cnv(r->img_n);
-	if (c.side == SIDE_E)
+	else if (c.side == SIDE_E)
 		cnv_tex = img_cnv(r->img_e);
-	if (c.side == SIDE_S)
+	else if (c.side == SIDE_S)
 		cnv_tex = img_cnv(r->img_s);
-	if (c.side == SIDE_W)
+	else if (c.side == SIDE_W)
 		cnv_tex = img_cnv(r->img_w);
 	y = 0;
 	while (y < c.h)

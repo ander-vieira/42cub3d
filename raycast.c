@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:40:22 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:50:25 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:40:29 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static t_castc	raycast_cget(t_run *r, t_castd d, t_castn n)
 			c.side = SIDE_N;
 		else
 			c.side = SIDE_S;
-		offset = r->cub->pos.x + n.dist * d.dir.x;
+		offset = r->pos.x + n.dist * d.dir.x;
 	}
 	else
 	{
@@ -92,9 +92,9 @@ static t_castc	raycast_cget(t_run *r, t_castd d, t_castn n)
 			c.side = SIDE_W;
 		else
 			c.side = SIDE_E;
-		offset = r->cub->pos.y + n.dist * d.dir.y;
+		offset = r->pos.y + n.dist * d.dir.y;
 	}
-	c.h = round(300 * d.scale / n.dist);
+	c.h = round(WALL_SCALE * d.scale / n.dist);
 	if (c.side == SIDE_S || c.side == SIDE_W)
 		c.tex_x = floor(TEX_W * (ceil(offset) - offset));
 	else
@@ -107,7 +107,7 @@ t_castc	raycast(t_run *r, long x)
 	t_castd	d;
 	t_castn	n;
 
-	d = raycast_init(r->cub->pos, r->cub->dir, x);
+	d = raycast_init(r->pos, r->dir, x);
 	while (TRUE)
 	{
 		n = raycast_next(&d);
