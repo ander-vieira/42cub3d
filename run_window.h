@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 13:48:07 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:06:39 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@
 # define STEP_DIST	0.2
 # define TURN_ANGLE	0.08726646259
 
+typedef enum e_side
+{
+	SIDE_NONE,
+	SIDE_N,
+	SIDE_E,
+	SIDE_S,
+	SIDE_W
+}	t_side;
+
 typedef struct s_imgdw
 {
 	void	*img;
@@ -48,12 +57,13 @@ typedef struct s_imgdw
 	int		bpp;
 	int		line_w;
 	int		endian;
-}	t_imgdw;
+}	t_cnv;
 
 typedef struct s_castd
 {
 	double	scale;
 	t_lvec	tile;
+	t_dvec	dir;
 	double	dist_x;
 	double	delta_x;
 	t_bool	n_x;
@@ -62,11 +72,19 @@ typedef struct s_castd
 	t_bool	n_y;
 }	t_castd;
 
-typedef struct s_castr
+typedef struct s_castn
 {
+	t_bool	is_y;
 	double	dist;
 	t_lvec	tile;
-}	t_castr;
+}	t_castn;
+
+typedef struct s_castc
+{
+	t_side	side;
+	long	tex_x;
+	long	h;
+}	t_castc;
 
 typedef struct s_run
 {
@@ -74,19 +92,25 @@ typedef struct s_run
 	void	*mlx;
 	void	*win;
 	void	*scr;
+	void	*img_n;
+	void	*img_s;
+	void	*img_w;
+	void	*img_e;
 }	t_run;
 
 void	*img_load(void *mlx, char *file);
 void	*img_new(void *mlx, t_lvec dim);
 void	img_free(void *mlx, void *img);
-void	img_fill(void *img, t_uint color, t_lvec pos, t_lvec dim);
-void	img_put(void *img1, void *img2, t_lvec pos, t_lvec dim);
+t_cnv	img_cnv(void *img);
+t_color	*img_px(t_cnv cnv, t_lvec pos);
 
 int		handler_dstry(t_run *r);
 int		handler_keydn(int keycode, t_run *r);
 int		handler_loop(t_run *r);
 
 void	end_program(t_run *r);
+
+t_castc	raycast(t_run *r, long x);
 
 /* ************************************************************************** */
 /* Module main function                                                       */
