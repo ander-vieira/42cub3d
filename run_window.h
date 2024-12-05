@@ -6,14 +6,12 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:40:46 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:44:54 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RUN_WINDOW_H
 # define RUN_WINDOW_H
-
-# include <stdlib.h>
 
 # include "mlx/mlx.h"
 
