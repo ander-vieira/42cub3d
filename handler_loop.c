@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 12:46:55 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:48:31 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	draw_view(t_run *r)
 
 int	handler_loop(t_run *r)
 {
+	rotate_mouse(r);
 	draw_view(r);
 	return (0);
 }

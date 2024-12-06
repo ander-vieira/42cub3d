@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 12:37:15 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:20:35 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define WIN_H		600
 
 # define EVT_KEYDN	2
+# define EVT_FCIN	9
+# define EVT_FCOUT	10
 # define EVT_DSTRY	17
 
 # define KEY_ESC	65307
@@ -33,12 +35,16 @@
 # define KEY_S		115
 # define KEY_D		100
 
+# define MASK_KEY	0x00000001
+# define MASK_FOCUS	0x00200000
+
 # define TEX_W		32
 # define TEX_H		32
 
 # define STEP_DIST	0.2
 # define TURN_ANGLE	0.08726646259
 # define WALL_SCALE	300
+# define MOUSE_SENS	0.00436332312
 
 typedef enum e_side
 {
@@ -84,6 +90,15 @@ typedef struct s_castc
 	long	h;
 }	t_castc;
 
+typedef struct s_mouse
+{
+	t_bool	focused;
+	int		x;
+	int		y;
+	int		prev_x;
+	int		prev_y;
+}	t_mouse;
+
 typedef struct s_run
 {
 	t_cubed	*cub;
@@ -96,6 +111,7 @@ typedef struct s_run
 	t_img	img_s;
 	t_img	img_w;
 	t_img	img_e;
+	t_mouse	mus;
 }	t_run;
 
 t_img	img_load(void *mlx, char *file);
@@ -105,13 +121,18 @@ t_img	img_cnv(void *img);
 t_color	*img_px(t_img cnv, t_lvec pos);
 
 int		handler_dstry(t_run *r);
+int		handler_focusin(t_run *r);
+int		handler_focusout(t_run *r);
 int		handler_keydn(int keycode, t_run *r);
 int		handler_loop(t_run *r);
 
 void	end_program(t_run *r, int status);
+
 t_castd	raycast_init(t_dvec pos, t_dvec dir, double slope);
 t_castn	raycast_next(t_castd *d);
 t_castc	raycast(t_run *r, long x);
+
+void	rotate_mouse(t_run *r);
 
 /* ************************************************************************** */
 /* Module main function                                                       */

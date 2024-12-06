@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 13:27:00 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:21:08 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ void	run_window(t_cubed *cub)
 
 	hardcode(cub);
 	runwn_init(&r, cub);
+	mlx_mouse_hide(r.mlx, r.win);
 	mlx_loop_hook(r.mlx, &handler_loop, &r);
-	mlx_hook(r.win, EVT_KEYDN, 0x1, (void *)&handler_keydn, &r);
+	mlx_hook(r.win, EVT_KEYDN, MASK_KEY, (void *)&handler_keydn, &r);
 	mlx_hook(r.win, EVT_DSTRY, 0, (void *)&handler_dstry, &r);
+	mlx_hook(r.win, EVT_FCIN, MASK_FOCUS, (void *)&handler_focusin, &r);
+	mlx_hook(r.win, EVT_FCOUT, MASK_FOCUS, (void *)&handler_focusout, &r);
 	mlx_loop(r.mlx);
 }
