@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:24:29 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:46:55 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 static void	fill_background(t_run *r, t_color color, t_lvec pos, t_lvec dim)
 {
-	t_cnv	cnv;
 	t_lvec	v;
 
-	cnv = img_cnv(r->scr);
 	v.x = 0;
 	while (v.x < dim.x)
 	{
 		v.y = 0;
 		while (v.y < dim.y)
 		{
-			*(img_px(cnv, lvec_add(pos, v))) = color;
+			*(img_px(r->scr, lvec_add(pos, v))) = color;
 			v.y++;
 		}
 		v.x++;
@@ -33,29 +31,24 @@ static void	fill_background(t_run *r, t_color color, t_lvec pos, t_lvec dim)
 
 static void	draw_column(t_run *r, long x, t_castc c)
 {
-	t_cnv	cnv_scr;
-	t_cnv	cnv_tex;
+	t_img	img;
 	long	y;
-	long	tex_y;
-	long	scr_y;
 
-	cnv_scr = img_cnv(r->scr);
 	if (c.side == SIDE_N)
-		cnv_tex = img_cnv(r->img_n);
+		img = r->img_n;
 	else if (c.side == SIDE_E)
-		cnv_tex = img_cnv(r->img_e);
+		img = r->img_e;
 	else if (c.side == SIDE_S)
-		cnv_tex = img_cnv(r->img_s);
+		img = r->img_s;
 	else if (c.side == SIDE_W)
-		cnv_tex = img_cnv(r->img_w);
+		img = r->img_w;
 	y = 0;
-	while (y < c.h)
+	if (c.h >= WIN_H)
+		y = (c.h - WIN_H) / 2;
+	while (y < c.h && y < (c.h + WIN_H) / 2)
 	{
-		scr_y = y + (WIN_H - c.h) / 2;
-		tex_y = y * TEX_H / c.h;
-		if (scr_y >= 0 && scr_y < WIN_H)
-			*(img_px(cnv_scr, lvec_new(x, y + (WIN_H - c.h) / 2)))
-				= *(img_px(cnv_tex, lvec_new(c.tex_x, tex_y)));
+		*(img_px(r->scr, lvec_new(x, y + (WIN_H - c.h) / 2)))
+			= *(img_px(img, lvec_new(c.tex_x, y * TEX_H / c.h)));
 		y++;
 	}
 }
@@ -76,7 +69,7 @@ static void	draw_view(t_run *r)
 		draw_column(r, x, c);
 		x++;
 	}
-	mlx_put_image_to_window(r->mlx, r->win, r->scr, 0, 0);
+	mlx_put_image_to_window(r->mlx, r->win, r->scr.i, 0, 0);
 }
 
 int	handler_loop(t_run *r)

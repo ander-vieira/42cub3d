@@ -6,32 +6,61 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:29:57 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:25:34 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+static void	attempt_move(t_run *r, t_face face)
+{
+	t_dvec	dir;
+	t_castd	d;
+	t_castn	n;
+	double	dist;
+
+	dir = dvec_trn(r->dir, face);
+	d = raycast_init(r->pos, dir, 0);
+	while (TRUE)
+	{
+		n = raycast_next(&d);
+		if (n.dist >= STEP_DIST)
+		{
+			dist = STEP_DIST;
+			break ;
+		}
+		else if (map_get(&(r->cub->map), n.tile) == '1')
+		{
+			if (n.is_y)
+				dist = n.dist - 0.01 / fabs(dir.y);
+			else
+				dist = n.dist - 0.01 / fabs(dir.x);
+			break ;
+		}
+	}
+	r->pos = dvec_add(r->pos, dvec_scl(dir, dist));
+}
+
+// static void	attempt_move(t_run *r, t_face face)
+// {
+// 	r->pos = dvec_add(r->pos, dvec_scl(dvec_trn(r->dir, face), STEP_DIST));
+// }
+
 int	handler_keydn(int keycode, t_run *r)
 {
-	t_dvec	*pos;
-	t_dvec	*dir;
-
-	pos = &(r->pos);
-	dir = &(r->dir);
 	if (keycode == KEY_ESC)
-		end_program(r);
+		end_program(r, EXIT_SUCCESS);
 	else if (keycode == KEY_W)
-		*pos = dvec_add(*pos, dvec_scl(*dir, STEP_DIST));
-	else if (keycode == KEY_S)
-		*pos = dvec_add(*pos, dvec_scl(*dir, -STEP_DIST));
-	else if (keycode == KEY_A)
-		*pos = dvec_add(*pos, dvec_nrm(dvec_scl(*dir, -STEP_DIST)));
+		attempt_move(r, FACE_F);
 	else if (keycode == KEY_D)
-		*pos = dvec_add(*pos, dvec_nrm(dvec_scl(*dir, STEP_DIST)));
+		attempt_move(r, FACE_R);
+	else if (keycode == KEY_S)
+		attempt_move(r, FACE_B);
+	else if (keycode == KEY_A)
+		attempt_move(r, FACE_L);
 	else if (keycode == KEY_LEFT)
-		*dir = dvec_rot(*dir, -TURN_ANGLE);
+		r->dir = dvec_rot(r->dir, -TURN_ANGLE);
 	else if (keycode == KEY_RIGHT)
-		*dir = dvec_rot(*dir, TURN_ANGLE);
+		r->dir = dvec_rot(r->dir, TURN_ANGLE);
 	return (0);
 }

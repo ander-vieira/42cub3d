@@ -6,18 +6,16 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:40:22 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:40:29 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:04:22 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static t_castd	raycast_init(t_dvec pos, t_dvec dir, long x)
+t_castd	raycast_init(t_dvec pos, t_dvec dir, double slope)
 {
 	t_castd	d;
-	double	slope;
 
-	slope = 2 * (double)x / WIN_W - 1;
 	d.scale = sqrt(slope * slope + 1);
 	d.dir = dvec_new(dir.x / d.scale - dir.y * slope / d.scale,
 			dir.y / d.scale + dir.x * slope / d.scale);
@@ -37,11 +35,11 @@ static t_castd	raycast_init(t_dvec pos, t_dvec dir, long x)
 	return (d);
 }
 
-static t_castn	raycast_next(t_castd *d)
+t_castn	raycast_next(t_castd *d)
 {
 	t_castn	n;
 
-	n.is_y = (d->dist_y <= d->dist_x);
+	n.is_y = (d->dir.y != 0 && (d->dir.x == 0 || d->dist_y <= d->dist_x));
 	if (n.is_y)
 	{
 		if (d->n_y)
@@ -107,7 +105,7 @@ t_castc	raycast(t_run *r, long x)
 	t_castd	d;
 	t_castn	n;
 
-	d = raycast_init(r->pos, r->dir, x);
+	d = raycast_init(r->pos, r->dir, 2 * (double)x / WIN_W - 1);
 	while (TRUE)
 	{
 		n = raycast_next(&d);

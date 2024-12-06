@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:31:11 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:53:10 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ typedef int				t_fd;
 typedef unsigned int	t_uint;
 typedef unsigned int	t_color;
 typedef char			*t_str;
+
+typedef enum e_face
+{
+	//Forward / North
+	FACE_F,
+	//Right / East
+	FACE_R,
+	//Back / South
+	FACE_B,
+	//Left / West
+	FACE_L
+}						t_face;
 
 typedef struct s_lvec
 {
@@ -56,7 +68,7 @@ typedef struct s_cubed
 	t_color	color_c;
 	t_map	map;
 	t_lvec	pos;
-	t_lvec	dir;
+	t_face	face;
 }						t_cubed;
 
 t_lvec	lvec_new(long x, long y);
@@ -65,7 +77,7 @@ t_lvec	lvec_add(t_lvec v1, t_lvec v2);
 t_dvec	dvec_new(double x, double y);
 t_dvec	dvec_add(t_dvec v1, t_dvec v2);
 t_dvec	dvec_scl(t_dvec v, double scale);
-t_dvec	dvec_nrm(t_dvec v);
+t_dvec	dvec_trn(t_dvec v, t_face face);
 t_dvec	dvec_rot(t_dvec v, double angle);
 
 t_bool	map_init(t_map *map, t_lvec dim);

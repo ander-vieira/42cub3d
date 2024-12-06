@@ -6,46 +6,54 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:35:06 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 17:06:23 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:25:28 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-void	*img_load(void *mlx, char *file)
+static void	load_canvas(t_img *img)
 {
-	void	*img;
+	int	endian;
+
+	if (img->i == NULL)
+		return ;
+	img->a = mlx_get_data_addr(img->i, &(img->bpp), &(img->line), &endian);
+	img->bpp /= 8;
+}
+
+t_img	img_load(void *mlx, char *file)
+{
+	t_img	img;
 	int		w;
 	int		h;
 
-	img = mlx_xpm_file_to_image(mlx, file, &w, &h);
-	if (img == NULL)
-		return (NULL);
+	img.i = mlx_xpm_file_to_image(mlx, file, &w, &h);
 	if (w != TEX_W || h != TEX_H)
-		return (mlx_destroy_image(mlx, img), NULL);
+		img_free(mlx, &img);
+	load_canvas(&img);
 	return (img);
 }
 
-void	*img_new(void *mlx, t_lvec dim)
+t_img	img_new(void *mlx, t_lvec dim)
 {
-	return (mlx_new_image(mlx, dim.x, dim.y));
+	t_img	img;
+
+	img.i = mlx_new_image(mlx, dim.x, dim.y);
+	load_canvas(&img);
+	return (img);
 }
 
-void	img_free(void *mlx, void *img)
+void	img_free(void *mlx, t_img *img)
 {
-	mlx_destroy_image(mlx, img);
+	if (img->i != NULL)
+	{
+		mlx_destroy_image(mlx, img->i);
+		img->i = NULL;
+	}
 }
 
-t_cnv	img_cnv(void *img)
+t_color	*img_px(t_img img, t_lvec pos)
 {
-	t_cnv	cnv;
-
-	cnv.addr = mlx_get_data_addr(img, &(cnv.bpp), &(cnv.line_w), &(cnv.endian));
-	cnv.bpp /= 8;
-	return (cnv);
-}
-
-t_color	*img_px(t_cnv cnv, t_lvec pos)
-{
-	return ((t_color *)(cnv.addr + pos.y * cnv.line_w + pos.x * cnv.bpp));
+	return ((t_color *)(img.a + pos.y * img.line + pos.x * img.bpp));
 }

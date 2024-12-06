@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 21:44:54 by andeviei         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:37:15 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ typedef enum e_side
 	SIDE_W
 }	t_side;
 
-typedef struct s_imgdw
+typedef struct s_img
 {
-	void	*img;
-	char	*addr;
+	void	*i;
+	char	*a;
 	int		bpp;
-	int		line_w;
-	int		endian;
-}	t_cnv;
+	int		line;
+}	t_img;
 
 typedef struct s_castd
 {
@@ -92,25 +91,26 @@ typedef struct s_run
 	t_dvec	dir;
 	void	*mlx;
 	void	*win;
-	void	*scr;
-	void	*img_n;
-	void	*img_s;
-	void	*img_w;
-	void	*img_e;
+	t_img	scr;
+	t_img	img_n;
+	t_img	img_s;
+	t_img	img_w;
+	t_img	img_e;
 }	t_run;
 
-void	*img_load(void *mlx, char *file);
-void	*img_new(void *mlx, t_lvec dim);
-void	img_free(void *mlx, void *img);
-t_cnv	img_cnv(void *img);
-t_color	*img_px(t_cnv cnv, t_lvec pos);
+t_img	img_load(void *mlx, char *file);
+t_img	img_new(void *mlx, t_lvec dim);
+void	img_free(void *mlx, t_img *img);
+t_img	img_cnv(void *img);
+t_color	*img_px(t_img cnv, t_lvec pos);
 
 int		handler_dstry(t_run *r);
 int		handler_keydn(int keycode, t_run *r);
 int		handler_loop(t_run *r);
 
-void	end_program(t_run *r);
-
+void	end_program(t_run *r, int status);
+t_castd	raycast_init(t_dvec pos, t_dvec dir, double slope);
+t_castn	raycast_next(t_castd *d);
 t_castc	raycast(t_run *r, long x);
 
 /* ************************************************************************** */
