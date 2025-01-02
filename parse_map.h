@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/02 21:58:26 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:37:10 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define PARSE_MAP_H
 
 # include "typedefs.h"
+
+# define LINE_BUFFER	1024
+
+t_str get_line(t_fd fd);
 
 /* ************************************************************************** */
 /* Module main function                                                       */

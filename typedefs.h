@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 11:53:10 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:37:30 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_dvec
 	double	y;
 }						t_dvec;
 
+typedef struct s_strl
+{
+	size_t	n;
+	t_str	*strs;
+}						t_strl;
+
 typedef struct s_map
 {
 	char	*tiles;
@@ -79,6 +85,11 @@ t_dvec	dvec_add(t_dvec v1, t_dvec v2);
 t_dvec	dvec_scl(t_dvec v, double scale);
 t_dvec	dvec_trn(t_dvec v, t_face face);
 t_dvec	dvec_rot(t_dvec v, double angle);
+
+size_t	str_len(t_str str);
+void	str_copy(t_str dest, t_str src, size_t len);
+
+t_strl	split_strs(t_str str);
 
 t_bool	map_init(t_map *map, t_lvec dim);
 void	map_free(t_map *map);

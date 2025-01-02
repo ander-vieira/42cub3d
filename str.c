@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 16:23:16 by alex              #+#    #+#             */
-/*   Updated: 2024/10/15 16:23:43 by alex             ###   ########.fr       */
+/*   Created: 2025/01/02 19:27:38 by alex              #+#    #+#             */
+/*   Updated: 2025/01/02 20:37:26 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+size_t	str_len(t_str str) {
+	size_t	len;
+
+	if (str == NULL)
+		return (0);
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
+}
+
+void	str_copy(t_str dest, t_str src, size_t len)
 {
 	size_t	i;
 
 	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
+	while (i < len)
 	{
-		if ((unsigned char) s1[i] != (unsigned char) s2[i])
-			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+		dest[i] = src[i];
 		i++;
 	}
-	return (0);
 }

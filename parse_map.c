@@ -6,127 +6,70 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 16:34:56 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:37:07 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <stdio.h>
 
-//TODO move these functions to the appropriate place
-size_t	ft_strlen(t_str str)
+t_bool	check_file_extension(t_str file, t_str ext)
 {
-	size_t	len;
-
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
-
-t_bool	ft_strcmp(t_str str1, t_str str2)
-{
+	size_t	file_len;
+	size_t	ext_len;
 	size_t	i;
 
+	file_len = str_len(file);
+	ext_len = str_len(ext);
+	if (file_len <= ext_len)
+		return (FALSE);
 	i = 0;
-	while (str1[i] != '\0' && str2[i] != '\0')
+	while (i < ext_len)
 	{
-		if (str1[i] != str2[i])
+		if (file[file_len - ext_len + i] != ext[i])
 			return (FALSE);
-		i++;
+		i++;	
 	}
-	if (str1[i] != str2[i])
-		return (FALSE);
-	return (TRUE);	
-}
-
-t_bool	check_file_extension(t_str file)
-{
-	if (ft_strlen(file) > 4 && ft_strcmp(file + ft_strlen(file) - 4, ".cub"))
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-//TODO everything
-/* t_bool	parse_map(t_str file, t_cubed *cubed)
-{
-	t_map	*map;
-	t_fd	fd;
-	int		i;
-
-	fd = open(file, O_RDONLY);
-	if (file < 0)
-	{
-		print_error("Map failed");
-		return (FALSE);
-	}
-	map = get_next_line(fd);
-	
 	return (TRUE);
-} */
+}
 
 t_bool	parse_map(t_str file, t_cubed *cubed)
 {
-	t_map		*map;
-	t_fd		fd;
-	char		buffer[1024];
-	int			bytes_leidos;
-	int			total_caracteres;
-	t_uint		columnas_temp;
-	int			i;
-	char 		*temp_tiles;
+	t_fd	fd;
+	t_str	line;
 
-	total_caracteres = 0;
-	columnas_temp = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		print_error("Error al abrir el archivo");
+	(void)cubed;
+	if (!check_file_extension(file, ".cub"))
 		return (FALSE);
-	}
-	map = &cubed->map;
-	map->dim = lvec_new(0, 0);
-	map->tiles = NULL;
-	temp_tiles = NULL;
-	// Leer y procesar el archivo en una sola pasada
-	while ((bytes_leidos = read(fd, buffer, sizeof(buffer))) > 0)
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (print_error(NULL), FALSE);
+	while (1)
 	{
-		i = 0;
-		while (i < bytes_leidos)
+		
+		// if (la linea es una propiedad)
+		// 	leer la propiedad
+		// 	si es duplicada
+		// 		error
+		// if (la linea no es una propiedad | estamos en modo mapa)
+		// 	cambiar a modo mapa
+		// 	comprobar que estan todas las propiedades
+		// 	leer la linea del mapa
+		line = get_line(fd);
+		if (line == NULL)
+			break ;
+		printf("LINE\n");
+		t_strl	strl = split_strs(line);
+		size_t	i = 0;
+		while (i < strl.n)
 		{
-			if (buffer[i] == '\n')
-			{
-				map->dim.y++;
-				// Actualizamos columnas máximas
-				if (columnas_temp > map->dim.x)
-					map->dim.x = columnas_temp;
-				columnas_temp = 0;
-			}
-			else
-			{
-				columnas_temp++;
-				// Reservar memoria dinámica y agregar al buffer temporal
-				temp_tiles = realloc(temp_tiles, total_caracteres + 1);
-				if (!temp_tiles)
-				{
-					print_error("memory allocation");
-					close(fd);
-					return (FALSE);
-				}
-				// Añadir el carácter
-				temp_tiles[total_caracteres++] = buffer[i];
-			}
+			printf("TOKEN: %s\n", strl.strs[i]);
 			i++;
 		}
+		free(line);
 	}
-    // Maneja el caso de que no haya nueva linea al final
-	if (columnas_temp > 0)
-	{
-		map->dim.y++;
-		if (columnas_temp > map->dim.x)
-			map->dim.x = columnas_temp;
-	}
-	map->tiles = temp_tiles;
 	close(fd);
+	// parsear las lineas de mapa al formato correcto y sacar las dimensiones
+	// sacar la posicion del jugador y cambiar casillas a 0 y 1
 	return (TRUE);
 }

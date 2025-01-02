@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2024/12/06 15:47:29 by andeviei         ###   ########.fr        #
+#    Updated: 2025/01/02 20:37:40 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	cubed.c \
 		dvec.c \
+		get_line.c \
 		handler_dstry.c \
 		handler_keydn.c \
 		handler_loop.c \
@@ -26,7 +27,9 @@ SRCS =	cubed.c \
 		parse_map.c \
 		print_error.c \
 		raycast.c \
-		run_window.c
+		run_window.c \
+		split_strs.c \
+		str.c
 
 HDRS =	cubed.h \
 		parse_map.h \
