@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:23:47 by alex              #+#    #+#             */
-/*   Updated: 2025/01/02 20:37:44 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:54:27 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static size_t	str_len_line(t_str str) {
+static size_t	str_len_line(t_str str)
+{
 	size_t	len;
 
 	len = 0;
@@ -53,10 +54,10 @@ static void	prep_buffer(t_str buf)
 	buf[rest_len] = '\0';
 }
 
-static t_bool has_newline(t_str line)
+static t_bool	has_newline(t_str line)
 {
 	size_t	i;
-	
+
 	if (line == NULL)
 		return (FALSE);
 	i = 0;
@@ -69,7 +70,8 @@ static t_bool has_newline(t_str line)
 	return (FALSE);
 }
 
-t_str get_line(t_fd fd) {
+t_str	get_line(t_fd fd)
+{
 	static char	buf[LINE_BUFFER];
 	char		*line;
 	ssize_t		read_bytes;
