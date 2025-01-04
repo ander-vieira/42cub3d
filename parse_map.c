@@ -6,7 +6,7 @@
 /*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/04 19:48:19 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/04 21:05:02 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ t_bool	check_file_extension(t_str file, t_str ext)
 	return (TRUE);
 }
 
-void	init_textures(t_cubed *cubed)
+void	init_cubed(t_cubed *cubed)
 {
 	cubed->tex_n = NULL;
 	cubed->tex_e = NULL;
 	cubed->tex_s = NULL;
 	cubed->tex_w = NULL;
+	cubed->color_c = 0;
+	cubed->color_f = 0;
 }
 
+// TODO: no permitir texturas repetidas
 static t_bool	parse_texture_property(t_str line, t_cubed *cubed)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
@@ -99,6 +102,42 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 
  */
 
+static t_bool	parse_color_property(t_str line, t_cubed *cubed)
+{
+	t_str	colors;
+	t_color	color_hex;
+	t_strl	color_tokens;
+	int		rgb[3];
+	int		i;
+
+
+	if (ft_strncmp(line, "F ", 2) == 0)
+		colors = line + 2;
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		colors = line + 2;
+	else
+		return (FALSE);
+	color_tokens = split_strs(colors);
+	if (color_tokens.n != 3)
+		return (print_error("Invalid color format"), FALSE);
+	i = 0;
+	while (i < 3)
+	{
+		rgb[i] = ft_atoi(color_tokens.strs[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			return (print_error("Color value out of range"), FALSE);
+		i++;
+	}
+	color_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	if (line[0] == 'F')
+		cubed->color_f = color_hex;
+	else if (line[0] == 'C')
+		cubed->color_c = color_hex;
+	//printf("AQUI!!: 0x%08x 0x%08x\n", cubed->color_c, cubed->color_f);
+	return (TRUE);
+}
+
+
 t_bool	parse_map(t_str file, t_cubed *cubed)
 {
 	t_fd	fd;
@@ -109,22 +148,25 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (print_error(NULL), FALSE);
-	init_textures(cubed);
-
+	init_cubed(cubed);
 	while ((line = get_line(fd)) != NULL)
 	{
 		if (parse_texture_property(line, cubed))
 		{
 			if (!parse_texture_property(line, cubed))
-				printf("Error: Incorrect texture\n");
+				return (print_error("Incorrect texture"), FALSE);
 			else
-				printf("TOKEN: %s", line);
+				printf("TEXTURES: %s", line);
+		}
+		else if (parse_color_property(line, cubed))
+		{
+			if (!parse_color_property(line, cubed))
+				return (print_error("Incorrect color"), FALSE);
+			else
+				printf("Colors: %s", line);
 		}
 		free(line);
 	}
 	close(fd);
-	if (!cubed->tex_n || !cubed->tex_e || !cubed->tex_s || !cubed->tex_w)
-		return (print_error("Missing texture property"), FALSE);
-
 	return (TRUE);
 }
