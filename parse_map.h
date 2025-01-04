@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/02 20:37:10 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:43:54 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ t_str get_line(t_fd fd);
 /* Module main function                                                       */
 /* ************************************************************************** */
 
+void	init_textures(t_cubed *cubed);
 t_bool	parse_map(t_str file, t_cubed *cubed);
+
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *str);
 
 #endif
