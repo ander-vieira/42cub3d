@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 16:21:08 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:58:09 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	load_images(t_run *r)
 	if (r->img_n.i == NULL || r->img_e.i == NULL
 		|| r->img_s.i == NULL || r->img_w.i == NULL)
 	{
-		print_error("Incorrect texture");
+		print_error("Incorrect texture loadin image");
 		end_program(r, EXIT_FAILURE);
 	}
 }
@@ -56,12 +56,12 @@ static void	load_images(t_run *r)
 //TODO remove hardcoded stuff
 static void	hardcode(t_cubed *cub)
 {
-	cub->color_c = 0x003a75c3;
+/*	cub->color_c = 0x003a75c3;
 	cub->color_f = 0x00f9dd17;
 	cub->tex_n = "textures/north.xpm";
 	cub->tex_e = "textures/east.xpm";
 	cub->tex_s = "textures/south.xpm";
-	cub->tex_w = "textures/west.xpm";
+	cub->tex_w = "textures/west.xpm"; */
 	cub->pos = lvec_new(1, 1);
 	cub->face = FACE_F;
 	map_init(&(cub->map), lvec_new(4, 4));
