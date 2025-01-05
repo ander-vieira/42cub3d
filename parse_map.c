@@ -6,7 +6,7 @@
 /*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/04 21:05:02 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/05 04:20:08 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void	init_cubed(t_cubed *cubed)
 	cubed->tex_w = NULL;
 	cubed->color_c = 0;
 	cubed->color_f = 0;
+	cubed->map.tiles = NULL;
+	cubed->map.dim.x = 0;
+	cubed->map.dim.y = 0;
 }
-
 // TODO: no permitir texturas repetidas
 static t_bool	parse_texture_property(t_str line, t_cubed *cubed)
 {
@@ -133,10 +135,9 @@ static t_bool	parse_color_property(t_str line, t_cubed *cubed)
 		cubed->color_f = color_hex;
 	else if (line[0] == 'C')
 		cubed->color_c = color_hex;
-	//printf("AQUI!!: 0x%08x 0x%08x\n", cubed->color_c, cubed->color_f);
+	//printf("COLOR: %0x %0x\n", cubed->color_f, cubed->color_c);
 	return (TRUE);
 }
-
 
 t_bool	parse_map(t_str file, t_cubed *cubed)
 {
@@ -154,14 +155,20 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 		if (parse_texture_property(line, cubed))
 		{
 			if (!parse_texture_property(line, cubed))
+			{
+				free(line);
 				return (print_error("Incorrect texture"), FALSE);
+			}
 			else
 				printf("TEXTURES: %s", line);
 		}
 		else if (parse_color_property(line, cubed))
 		{
 			if (!parse_color_property(line, cubed))
+			{
+				free(line);
 				return (print_error("Incorrect color"), FALSE);
+			}
 			else
 				printf("Colors: %s", line);
 		}
