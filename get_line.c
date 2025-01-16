@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:23:47 by alex              #+#    #+#             */
-/*   Updated: 2025/01/04 18:54:27 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/16 20:28:02 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static t_bool	has_newline(t_str line)
 	return (FALSE);
 }
 
+//TODO add print_error for read fail
 t_str	get_line(t_fd fd)
 {
 	static char	buf[LINE_BUFFER];

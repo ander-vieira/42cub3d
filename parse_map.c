@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/15 18:49:00 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/16 20:44:45 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <stdio.h>
 
 t_bool	check_file_extension(t_str file, t_str ext)
 {
@@ -33,144 +32,139 @@ t_bool	check_file_extension(t_str file, t_str ext)
 	return (TRUE);
 }
 
-void	init_cubed(t_cubed *cubed)
+t_bool	is_texture(t_str prefix)
 {
-	cubed->tex_n = NULL;
-	cubed->tex_e = NULL;
-	cubed->tex_s = NULL;
-	cubed->tex_w = NULL;
-	cubed->color_c = 0;
-	cubed->color_f = 0;
-	cubed->map.tiles = NULL;
-	cubed->map.dim.x = 0;
-	cubed->map.dim.y = 0;
+	return (str_cmp(prefix, PREFIX_NORTH) || str_cmp(prefix, PREFIX_EAST)
+		|| str_cmp(prefix, PREFIX_SOUTH) || str_cmp(prefix, PREFIX_WEST));
 }
 
-static t_bool	parse_texture_property(t_str line, t_cubed *cubed)
+void	read_texture(t_cubed *cubed, t_str prefix, t_str value)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		cubed->tex_n = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		cubed->tex_s = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		cubed->tex_w = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		cubed->tex_e = ft_strdup(line + 3);
-	else
+	if (str_cmp(prefix, PREFIX_NORTH))
+		cubed->tex_n = value;
+	else if (str_cmp(prefix, PREFIX_EAST))
+		cubed->tex_e = value;
+	else if (str_cmp(prefix, PREFIX_SOUTH))
+		cubed->tex_s = value;
+	else if (str_cmp(prefix, PREFIX_WEST))
+		cubed->tex_w = value;
+}
+
+t_bool	parse_byte(t_str value, size_t *i, t_byte *byte)
+{
+	t_bool	empty;
+	t_byte	digit;
+
+	empty = TRUE;
+	while (value[*i] >= '0' && value[*i] <= '9')
+	{
+		empty = FALSE;
+		digit = value[*i] - '0';
+		if (*byte > 25 || (*byte == 25 && digit > 5))
+			return (print_error("TODO"), FALSE);
+		*byte = (*byte) * 10 + digit;
+		*i += 1;
+	}
+	if (empty)
+		return (print_error("TODO"), FALSE);
+	return (TRUE);
+}
+
+t_bool	parse_color(t_str value, t_color *color)
+{
+	size_t	i;
+
+	*color = 0;
+	i = 0;
+	if (!parse_byte(value, &i, (t_byte *)color + 2))
+		return (FALSE);
+	if (value[i++] != ',')
+		return (FALSE);
+	if (!parse_byte(value, &i, (t_byte *)color + 1))
+		return (FALSE);
+	if (value[i++] != ',')
+		return (FALSE);
+	if (!parse_byte(value, &i, (t_byte *)color))
+		return (FALSE);
+	if (value[i++] != '\0')
 		return (FALSE);
 	return (TRUE);
 }
 
-static t_bool	is_map_line(t_str line)
+t_bool	is_color(t_str prefix)
 {
+	return (str_cmp(prefix, PREFIX_FLOOR) || str_cmp(prefix, PREFIX_CEILING));
+}
+
+t_bool	read_color(t_cubed *cubed, t_str prefix, t_str value)
+{
+	t_color	color;
+
+	if (!parse_color(value, &color))
+		return (FALSE);
+	else if (str_cmp(prefix, PREFIX_FLOOR))
+		cubed->color_f = color;
+	else if (str_cmp(prefix, PREFIX_CEILING))
+		cubed->color_c = color;
+	return (TRUE);
+}
+
+t_bool	add_map_line(t_strl *lines, t_str line)
+{
+	t_str	*new_strs;
 	size_t	i;
 
+	new_strs = (t_str *)malloc(sizeof(t_str) * (lines->n + 1));
+	if (new_strs == NULL)
+		return (print_error(NULL), FALSE);
 	i = 0;
-	while (line[i])
+	while (i < lines->n)
 	{
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '0')
-			return (FALSE);
+		new_strs[i] = lines->strs[i];
 		i++;
 	}
+	new_strs[lines->n] = line;
+	free(lines->strs);
+	lines->strs = new_strs;
+	lines->n += 1;
 	return (TRUE);
 }
 
-static t_bool	parse_map_line(t_str line, t_cubed *cubed)
+//TODO XD
+void	process_map(t_cubed *cubed, t_strl *lines)
 {
-	long	len;
-	t_lvec	pos;
-
-	len = str_len(line);
-	if (cubed->map.dim.x == 0)
-		cubed->map.dim.x = len;
-	else if (cubed->map.dim.x != len)
-		return (print_error("Map line length mismatch"), FALSE);
-	pos.y = cubed->map.dim.y;
-	cubed->map.dim.y++;
-	if (!map_init(&cubed->map, cubed->map.dim))
-		return (print_error("Map initialization failed"), FALSE);
-	pos.x = 0;
-	while (pos.x < len)
-	{
-		map_set(&cubed->map, pos, line[pos.x]);
-		pos.x++;
-	}
-	return (TRUE);
-}
-
-t_bool	parse_map_lines(t_fd fd, t_cubed *cubed)
-{
-	t_str	line;
-	t_bool	map_started;
-
-	map_started = FALSE;
-	while ((line = get_line(fd)) != NULL)
-	{
-		if (is_map_line(line))
-		{
-			map_started = TRUE;
-			if (!parse_map_line(line, cubed))
-			{
-				free(line);
-				return (print_error("Incorrect map"), FALSE);
-			}
-		}
-		else if (map_started && !is_map_line(line))
-		{
-			free(line);
-			return (print_error("Map not continuous"), FALSE);
-		}
-		free(line);
-	}
-	return (TRUE);
+	(void)cubed;
+	(void)lines;
 }
 
 t_bool	parse_map(t_str file, t_cubed *cubed)
 {
-	t_fd	fd;
+	t_parse	parse;
 	t_str	line;
+	t_strl	tokens;
 
-	if (!check_file_extension(file, ".cub"))
-		return (print_error("File not valid"), FALSE);
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	if (!check_file_extension(file, FILE_EXTENSION))
+		return (print_error("File extension not valid"), FALSE);
+	parse.fd = open(file, O_RDONLY);
+	if (parse.fd == -1)
 		return (print_error(NULL), FALSE);
-	init_cubed(cubed);
-
-	while ((line = get_line(fd)) != NULL)
+	parse.is_map = FALSE;
+	while (1)
 	{
-		if (parse_texture_property(line, cubed))
-		{
-			printf("TOKEN: %s\n", line);
-		}
-		else if (is_map_line(line))
-		{
-			if (!parse_map_lines(fd, cubed))
-			{
-				free(line);
-				return (print_error("Incorrect map"), FALSE);
-			}
-			printf("MAP LINE: %s\n", line);
-		}
-		/* else if (ft_strncmp(line, "F ", 2) == 0)
-		{
-			cubed->color_f = ft_atoi_base(line + 2, 16);
-			printf("FLOOR COLOR: %d\n", cubed->color_f);
-		}
-		else if (ft_strncmp(line, "C ", 2) == 0)
-		{
-			cubed->color_c = ft_atoi_base(line + 2, 16);
-			printf("CEILING COLOR: %d\n", cubed->color_c);
-		} */
-		else
-		{
-			printf("error\n");
-		}
+		line = get_line(parse.fd);
+		if (line == NULL)
+			break ;
+		tokens = split_strs(line);
+		if (!parse.is_map && tokens.n == 2 && is_texture(tokens.strs[0]))
+			read_texture(cubed, tokens.strs[0], tokens.strs[1]);
+		else if (!parse.is_map && tokens.n == 2 && is_color(tokens.strs[0])
+			&& !read_color(cubed, tokens.strs[0], tokens.strs[1]))
+			return (free(line), close(parse.fd), FALSE);
+		else if (!add_map_line(&(parse.map_lines), line))
+			return (free(line), close(parse.fd), FALSE);
 		free(line);
 	}
-	close(fd);
-	if (!cubed->tex_n || !cubed->tex_e || !cubed->tex_s || !cubed->tex_w)
-		return (print_error("Missing texture property"), FALSE);
-
-	return (TRUE);
+	process_map(cubed, &(parse.map_lines));
+	map_print(&(cubed->map));
+	return (close(parse.fd), TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_strs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:09:04 by alex              #+#    #+#             */
-/*   Updated: 2025/01/04 21:07:43 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/16 20:03:55 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 static t_bool	is_space(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t'
-		|| c == '\r' || c == '\f' || c == '\v'
-		|| c == ',');
+		|| c == '\r' || c == '\f' || c == '\v');
 }
 
 static size_t	count_split(t_str str)

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:52:33 by andeviei          #+#    #+#             */
-/*   Updated: 2024/10/01 13:11:40 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:28:19 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	print_string(t_fd fd, t_str str)
 	write(fd, str, len);
 }
 
-//TODO use strerror when str = NULL
 void	print_error(t_str str)
 {
 	if (str == NULL)

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/02 20:37:30 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:38:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ typedef enum e_bool
 	TRUE
 }						t_bool;
 
-typedef int				t_fd;
+typedef unsigned char	t_byte;
 typedef unsigned int	t_uint;
-typedef unsigned int	t_color;
 typedef char			*t_str;
+
+typedef int				t_fd;
+typedef unsigned int	t_color;
 
 typedef enum e_face
 {
@@ -88,6 +90,7 @@ t_dvec	dvec_rot(t_dvec v, double angle);
 
 size_t	str_len(t_str str);
 void	str_copy(t_str dest, t_str src, size_t len);
+t_bool	str_cmp(t_str str1, t_str str2);
 
 t_strl	split_strs(t_str str);
 

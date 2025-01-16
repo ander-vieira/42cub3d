@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:27:38 by alex              #+#    #+#             */
-/*   Updated: 2025/01/04 19:46:38 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/16 19:21:08 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void	str_copy(t_str dest, t_str src, size_t len)
 		dest[i] = src[i];
 		i++;
 	}
+}
+
+t_bool	str_cmp(t_str str1, t_str str2)
+{
+	size_t	i;
+
+	i = 0;
+	while (str1[i] != '\0' || str2[i] != '\0')
+	{
+		if (str1[i] != str2[i])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
@@ -91,4 +105,30 @@ char	*ft_strdup(const char *s1)
 	ft_memcpy(str, s1, len);
 	str[len] = '\0';
 	return (str);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	sign;
+	int	rest;
+
+	sign = 1;
+	rest = 0;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		rest = rest * 10 + (str[i] - '0');
+		i++;
+	}
+	return (rest * sign);
 }

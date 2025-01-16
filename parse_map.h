@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <ahiguera@student.42urduliz.com>      +#+  +:+       +#+        */
+/*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/15 18:30:11 by alex             ###   ########.fr       */
+/*   Updated: 2025/01/16 20:25:51 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,36 @@
 
 # define LINE_BUFFER	1024
 
+# define FILE_EXTENSION	".cub"
+
+# define PREFIX_NORTH	"NO"
+# define PREFIX_EAST	"EA"
+# define PREFIX_SOUTH	"SO"
+# define PREFIX_WEST	"WE"
+# define PREFIX_FLOOR	"F"
+# define PREFIX_CEILING	"C"
+
+typedef struct s_parse
+{
+	t_cubed	*cubed;
+	t_fd	fd;
+	t_bool	is_map;
+	t_strl	map_lines;
+}	t_parse;
+
 t_str get_line(t_fd fd);
 
 /* ************************************************************************** */
 /* Module main function                                                       */
 /* ************************************************************************** */
 
-void	init_cubed(t_cubed *cubed);
 t_bool	parse_map(t_str file, t_cubed *cubed);
 
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
+int		ft_atoi(const char *str);
 
 t_bool	parse_map_lines(t_fd fd, t_cubed *cubed);
 
