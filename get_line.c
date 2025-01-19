@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:23:47 by alex              #+#    #+#             */
-/*   Updated: 2025/01/16 20:28:02 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:13:15 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static t_bool	has_newline(t_str line)
 	return (FALSE);
 }
 
-//TODO add print_error for read fail
 t_str	get_line(t_fd fd)
 {
 	static char	buf[LINE_BUFFER];
@@ -83,8 +82,10 @@ t_str	get_line(t_fd fd)
 		read_bytes = read(fd, buf, LINE_BUFFER);
 		if (read_bytes == 0 && str_len(line) != 0)
 			break ;
-		else if (read_bytes <= 0)
-			return (free(line), buf[0] = '\0', NULL);
+		else if (read_bytes == 0)
+			return (free(line), NULL);
+		else if (read_bytes == -1)
+			return (print_error(NULL), free(line), buf[0] = '\0', NULL);
 		buf[read_bytes] = '\0';
 		line = add_line(line, buf);
 	}

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:40:22 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 13:04:22 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:16:24 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_castc	raycast(t_run *r, long x)
 			|| (d.n_y && n.tile.y < 0)
 			|| (!d.n_y && n.tile.y >= r->cub->map.dim.y))
 			return (raycast_cempty());
-		else if (map_get(&(r->cub->map), n.tile) == '1')
+		else if (map_get(&(r->cub->map), n.tile) == MAP_WALL)
 			return (raycast_cget(r, d, n));
 	}
 }

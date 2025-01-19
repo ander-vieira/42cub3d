@@ -6,32 +6,11 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/16 18:40:17 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:45:51 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-static void	init_empty_map(t_map *map)
-{
-	t_lvec	pos;
-
-	pos.x = 0;
-	while (pos.x < map->dim.x)
-	{
-		pos.y = 0;
-		while (pos.y < map->dim.y)
-		{
-			if (pos.x == 0 || pos.y == 0
-				|| pos.x == map->dim.x - 1 || pos.y == map->dim.y - 1)
-				map_set(map, pos, '1');
-			else
-				map_set(map, pos, '0');
-			pos.y++;
-		}
-		pos.x++;
-	}
-}
 
 static void	load_images(t_run *r)
 {
@@ -53,23 +32,6 @@ static void	load_images(t_run *r)
 	}
 }
 
-//TODO remove hardcoded stuff
-static void	hardcode(t_cubed *cub)
-{
-	// cub->color_c = 0x003a75c3;
-	// cub->color_f = 0x00f9dd17;
- 	// cub->tex_n = "textures/north.xpm";
-	// cub->tex_e = "textures/east.xpm";
-	// cub->tex_s = "textures/south.xpm";
-	// cub->tex_w = "textures/west.xpm";
-	cub->pos = lvec_new(1, 1);
-	cub->face = FACE_F;
-	map_init(&(cub->map), lvec_new(4, 4));
-	init_empty_map(&(cub->map));
-	map_set(&(cub->map), lvec_new(2, 0), '0');
-	map_print(&(cub->map));
-}
-
 static void	runwn_init(t_run *r, t_cubed *cub)
 {
 	r->cub = cub;
@@ -77,7 +39,7 @@ static void	runwn_init(t_run *r, t_cubed *cub)
 	r->dir = dvec_trn(dvec_new(0, -1), r->cub->face);
 	r->mlx = mlx_init();
 	load_images(r);
-	r->win = mlx_new_window(r->mlx, WIN_W, WIN_H, "HOLA MUNDO");
+	r->win = mlx_new_window(r->mlx, WIN_W, WIN_H, WIN_TITLE);
 }
 
 void	end_program(t_run *r, int status)
@@ -95,7 +57,6 @@ void	run_window(t_cubed *cub)
 {
 	t_run	r;
 
-	hardcode(cub);
 	runwn_init(&r, cub);
 	mlx_mouse_hide(r.mlx, r.win);
 	mlx_loop_hook(r.mlx, &handler_loop, &r);

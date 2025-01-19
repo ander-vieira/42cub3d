@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:09:04 by alex              #+#    #+#             */
-/*   Updated: 2025/01/16 20:03:55 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/20 00:01:43 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,23 @@ static t_str	next_split(t_str str, size_t *j)
 	return (next);
 }
 
+//TODO use to free map line tokens
+void	strl_free(t_strl *strl)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < strl->n)
+	{
+		free(strl->strs[i]);
+		i++;
+	}
+	free(strl->strs);
+	strl->n = 0;
+	strl->strs = NULL;
+}
+
+//TODO handle malloc error cases
 t_strl	split_strs(t_str str)
 {
 	t_strl	strl;

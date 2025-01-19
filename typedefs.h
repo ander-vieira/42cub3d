@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/16 19:38:24 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:31:10 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_dvec	dvec_rot(t_dvec v, double angle);
 size_t	str_len(t_str str);
 void	str_copy(t_str dest, t_str src, size_t len);
 t_bool	str_cmp(t_str str1, t_str str2);
+t_str	str_dup(t_str str);
 
 t_strl	split_strs(t_str str);
 
@@ -99,5 +100,6 @@ void	map_free(t_map *map);
 char	map_get(t_map *map, t_lvec pos);
 void	map_set(t_map *map, t_lvec pos, char tile);
 void	map_print(t_map *map);
+void	map_foreach(t_map *map, void (*f)(t_map *, t_lvec, void *), void *ptr);
 
 #endif

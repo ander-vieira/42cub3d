@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:27:38 by alex              #+#    #+#             */
-/*   Updated: 2025/01/16 19:21:08 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:52:01 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,85 +50,16 @@ t_bool	str_cmp(t_str str1, t_str str2)
 	return (TRUE);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+t_str	str_dup(t_str str)
 {
-	size_t	i;
-	char	*origin;
-	char	*dest;
-
-	if (dst == NULL && src == NULL && n != 0)
-		return (NULL);
-	i = 0;
-	origin = (char *)src;
-	dest = (char *)dst;
-	while (i < n)
-	{
-		dest[i] = origin[i];
-		i++;
-	}
-	return (dst);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
-	{
-		if ((unsigned char) s1[i] != (unsigned char) s2[i])
-			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*str;
+	t_str	dup;
 	size_t	len;
 
-	len = ft_strlen(s1);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
+	len = str_len(str);
+	dup = (t_str)malloc(len + 1);
+	if (dup == NULL)
 		return (NULL);
-	ft_memcpy(str, s1, len);
-	str[len] = '\0';
-	return (str);
-}
-
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	sign;
-	int	rest;
-
-	sign = 1;
-	rest = 0;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		rest = rest * 10 + (str[i] - '0');
-		i++;
-	}
-	return (rest * sign);
+	str_copy(dup, str, len);
+	dup[len] = '\0';
+	return (dup);
 }

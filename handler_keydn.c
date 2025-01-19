@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 13:25:34 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:16:14 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	attempt_move(t_run *r, t_face face)
 			dist = STEP_DIST;
 			break ;
 		}
-		else if (map_get(&(r->cub->map), n.tile) == '1')
+		else if (map_get(&(r->cub->map), n.tile) == MAP_WALL)
 		{
 			if (n.is_y)
 				dist = n.dist - 0.01 / fabs(dir.y);

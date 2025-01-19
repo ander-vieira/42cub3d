@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 16:20:35 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:45:59 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include "typedefs.h"
 
+# define WIN_TITLE	"APRUEBAME"
 # define WIN_W		800
 # define WIN_H		600
 

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:17:25 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/05 18:23:55 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:17:01 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	map_init(t_map *map, t_lvec dim)
 {
 	map->tiles = (char *)malloc(sizeof(char) * dim.x * dim.y);
 	if (map->tiles == NULL)
-		return (FALSE);
+		return (print_error(NULL), FALSE);
 	map->dim = dim;
 	return (TRUE);
 }
@@ -30,7 +30,7 @@ void	map_free(t_map *map)
 char	map_get(t_map *map, t_lvec pos)
 {
 	if (pos.x < 0 || pos.x >= map->dim.x || pos.y < 0 || pos.y >= map->dim.y)
-		return ('0');
+		return (MAP_FLOOR);
 	return (map->tiles[pos.y * map->dim.x + pos.x]);
 }
 
@@ -39,22 +39,40 @@ void	map_set(t_map *map, t_lvec pos, char tile)
 	map->tiles[pos.y * map->dim.x + pos.x] = tile;
 }
 
+//TODO QUITAR
 void	map_print(t_map *map)
 {
 	t_lvec	pos;
 	char	c;
 
-	pos.x = 0;
-	while (pos.x < map->dim.x)
+	pos.y = 0;
+	while (pos.y < map->dim.y)
 	{
-		pos.y = 0;
-		while (pos.y < map->dim.y)
+		pos.x = 0;
+		while (pos.x < map->dim.x)
 		{
 			c = map_get(map, pos);
 			write(1, &c, 1);
-			pos.y++;
+			pos.x++;
 		}
 		write(1, "\n", 1);
-		pos.x++;
+		pos.y++;
+	}
+}
+
+void	map_foreach(t_map *map, void (*f)(t_map *, t_lvec, void *), void *ptr)
+{
+	t_lvec	pos;
+
+	pos.y = 0;
+	while (pos.y < map->dim.y)
+	{
+		pos.x = 0;
+		while (pos.x < map->dim.x)
+		{
+			f(map, pos, ptr);
+			pos.x++;
+		}
+		pos.y++;
 	}
 }
