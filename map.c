@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:17:25 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 15:17:01 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:53:47 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,6 @@ char	map_get(t_map *map, t_lvec pos)
 void	map_set(t_map *map, t_lvec pos, char tile)
 {
 	map->tiles[pos.y * map->dim.x + pos.x] = tile;
-}
-
-//TODO QUITAR
-void	map_print(t_map *map)
-{
-	t_lvec	pos;
-	char	c;
-
-	pos.y = 0;
-	while (pos.y < map->dim.y)
-	{
-		pos.x = 0;
-		while (pos.x < map->dim.x)
-		{
-			c = map_get(map, pos);
-			write(1, &c, 1);
-			pos.x++;
-		}
-		write(1, "\n", 1);
-		pos.y++;
-	}
 }
 
 void	map_foreach(t_map *map, void (*f)(t_map *, t_lvec, void *), void *ptr)

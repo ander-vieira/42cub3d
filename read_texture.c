@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:37:47 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 12:38:14 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:47:59 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_bool	is_texture(t_str prefix)
 void	read_texture(t_cubed *cubed, t_str prefix, t_str value)
 {
 	if (str_cmp(prefix, PREFIX_NORTH))
-		cubed->tex_n = value;
+		cubed->tex_n = str_dup(value);
 	else if (str_cmp(prefix, PREFIX_EAST))
-		cubed->tex_e = value;
+		cubed->tex_e = str_dup(value);
 	else if (str_cmp(prefix, PREFIX_SOUTH))
-		cubed->tex_s = value;
+		cubed->tex_s = str_dup(value);
 	else if (str_cmp(prefix, PREFIX_WEST))
-		cubed->tex_w = value;
+		cubed->tex_w = str_dup(value);
 }

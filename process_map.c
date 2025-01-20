@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:55:46 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 15:23:19 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:51:52 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	process_map_f(t_map *map, t_lvec pos, void *ptr)
 		map_set(map, pos, MAP_FLOOR);
 }
 
-void	process_map(t_map *map, t_strl lines)
+void	process_map(t_map *map, t_strl *lines)
 {
-	map_foreach(map, &process_map_f, &lines);
+	map_foreach(map, &process_map_f, lines);
+	strl_free(lines);
 }

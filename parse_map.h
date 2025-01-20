@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:49:57 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 17:49:01 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:52:05 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	read_texture(t_cubed *cubed, t_str prefix, t_str value);
 t_bool	is_color(t_str prefix);
 t_bool	read_color(t_cubed *cubed, t_str prefix, t_str value);
 
-void	process_map(t_map *map, t_strl lines);
+void	process_map(t_map *map, t_strl *lines);
 t_bool	validate_map(t_cubed *cubed);
 
 /* ************************************************************************** */

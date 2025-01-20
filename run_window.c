@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 17:45:51 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:50:17 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	end_program(t_run *r, int status)
 	img_free(r->mlx, &(r->img_e));
 	img_free(r->mlx, &(r->img_s));
 	img_free(r->mlx, &(r->img_w));
+	free(r->cub->tex_n);
+	free(r->cub->tex_e);
+	free(r->cub->tex_s);
+	free(r->cub->tex_w);
 	exit(status);
 }
 
