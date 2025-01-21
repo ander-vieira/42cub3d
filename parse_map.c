@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 00:51:58 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:49:16 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,6 @@ static t_bool	add_map_line(t_strl *lines, t_str line, t_bool *is_map)
 	return (TRUE);
 }
 
-static t_lvec	map_dimensions(t_strl lines)
-{
-	t_lvec	dim;
-	size_t	i;
-	long	line_len;
-
-	dim.y = lines.n;
-	dim.x = 0;
-	i = 0;
-	while (i < lines.n)
-	{
-		line_len = 0;
-		while (lines.strs[i][line_len] != '\0'
-			&& lines.strs[i][line_len] != '\n')
-			line_len++;
-		if (line_len > dim.x)
-			dim.x = line_len;
-		i++;
-	}
-	return (dim);
-}
-
-//TODO finish splitting parse_map into two functions, free tokens
 static t_bool	parse_line(t_parse *parse)
 {
 	t_strl	tokens;
@@ -106,6 +83,8 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 	parse.cubed = cubed;
 	parse.is_map = FALSE;
 	parse.fd = open(file, O_RDONLY);
+	parse.map_lines.n = 0;
+	parse.map_lines.strs = NULL;
 	if (parse.fd == -1)
 		return (print_error(NULL), FALSE);
 	while (1)
@@ -117,9 +96,8 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 			return (free(parse.line), close(parse.fd), FALSE);
 		free(parse.line);
 	}
-	if (!map_init(&(cubed->map), map_dimensions(parse.map_lines)))
+	if (!process_map(&(cubed->map), &(parse.map_lines)))
 		return (close(parse.fd), FALSE);
-	process_map(&(cubed->map), &(parse.map_lines));
 	if (!validate_map(cubed))
 		return (close(parse.fd), FALSE);
 	return (close(parse.fd), TRUE);

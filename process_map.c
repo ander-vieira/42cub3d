@@ -6,11 +6,33 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:55:46 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 00:51:52 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:49:03 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static t_lvec	map_dimensions(t_strl *lines)
+{
+	t_lvec	dim;
+	size_t	i;
+	long	line_len;
+
+	dim.y = lines->n;
+	dim.x = 0;
+	i = 0;
+	while (i < lines->n)
+	{
+		line_len = 0;
+		while (lines->strs[i][line_len] != '\0'
+			&& lines->strs[i][line_len] != '\n')
+			line_len++;
+		if (line_len > dim.x)
+			dim.x = line_len;
+		i++;
+	}
+	return (dim);
+}
 
 static void	process_map_f(t_map *map, t_lvec pos, void *ptr)
 {
@@ -38,8 +60,10 @@ static void	process_map_f(t_map *map, t_lvec pos, void *ptr)
 		map_set(map, pos, MAP_FLOOR);
 }
 
-void	process_map(t_map *map, t_strl *lines)
+t_bool	process_map(t_map *map, t_strl *lines)
 {
+	if (!map_init(map, map_dimensions(lines)))
+		return (strl_free(lines), FALSE);
 	map_foreach(map, &process_map_f, lines);
-	strl_free(lines);
+	return (strl_free(lines), TRUE);
 }
