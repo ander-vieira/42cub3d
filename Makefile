@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2025/01/18 15:06:12 by andeviei         ###   ########.fr        #
+#    Updated: 2025/01/21 10:41:58 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = cub3D
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	cubed.c \
+		draw_minimap.c \
 		dvec.c \
 		get_line.c \
 		handler_dstry.c \

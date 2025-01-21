@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 17:45:59 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:14:39 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@
 # define TURN_ANGLE	0.08726646259
 # define WALL_SCALE	300
 # define MOUSE_SENS	0.00436332312
+
+# define MMAP_SIZE	150
+# define MMAP_BRDRS	5				//Minimap border size
+# define MMAP_BRDRC	0x00333333		//Minimap border color
+# define MMAP_FLOOR	0x00808080
+# define MMAP_WALL	0x00333333
+# define MMAP_PLAYR	0x00FF0000
 
 typedef enum e_side
 {
@@ -134,6 +141,7 @@ t_castn	raycast_next(t_castd *d);
 t_castc	raycast(t_run *r, long x);
 
 void	rotate_mouse(t_run *r);
+void	draw_minimap(t_run *r);
 
 /* ************************************************************************** */
 /* Module main function                                                       */

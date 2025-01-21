@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:58:27 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 15:48:31 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:30:08 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	draw_view(t_run *r)
 		draw_column(r, x, c);
 		x++;
 	}
+	draw_minimap(r);
 	mlx_put_image_to_window(r->mlx, r->win, r->scr.i, 0, 0);
 }
 
