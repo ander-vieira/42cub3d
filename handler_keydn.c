@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:34:05 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:37:54 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	attempt_move(t_run *r, t_face face)
 	r->pos = dvec_add(r->pos, dvec_scl(dir, dist));
 }
 
+//Replace this function to disable wall collision
 // static void	attempt_move(t_run *r, t_face face)
 // {
 // 	r->pos = dvec_add(r->pos, dvec_scl(dvec_trn(r->dir, face), STEP_DIST));
