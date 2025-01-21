@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:21:39 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:33:44 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:07:10 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_dvec	dvec_rot(t_dvec v, t_bool reverse)
 {
 	if (reverse)
 		return (dvec_new(v.x * TURN_COS + v.y * TURN_SIN,
-			v.y * TURN_COS - v.x * TURN_SIN));
+				v.y * TURN_COS - v.x * TURN_SIN));
 	else
 		return (dvec_new(v.x * TURN_COS - v.y * TURN_SIN,
-			v.y * TURN_COS + v.x * TURN_SIN));
+				v.y * TURN_COS + v.x * TURN_SIN));
 }

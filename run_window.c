@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 00:50:17 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:58:36 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	runwn_init(t_run *r, t_cubed *cub)
 	r->mlx = mlx_init();
 	load_images(r);
 	r->win = mlx_new_window(r->mlx, WIN_W, WIN_H, WIN_TITLE);
+	r->mus.focused = FALSE;
 }
 
 void	end_program(t_run *r, int status)

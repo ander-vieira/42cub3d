@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:28:27 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:12:56 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:56:44 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	draw_border(t_run *r)
 			if (pos.x < WIN_W - MMAP_SIZE - MMAP_BRDRS
 				|| pos.x >= WIN_W - MMAP_BRDRS
 				|| pos.y < MMAP_BRDRS || pos.y >= MMAP_SIZE + MMAP_BRDRS)
-			*(img_px(r->scr, pos)) = MMAP_BRDRC;
+				*(img_px(r->scr, pos)) = MMAP_BRDRC;
 			pos.y++;
 		}
 		pos.x++;
@@ -35,15 +35,15 @@ static void	draw_border(t_run *r)
 static t_lvec	tile_position(t_lvec pos)
 {
 	return (lvec_new(pos.x + WIN_W - MMAP_SIZE - MMAP_BRDRS,
-		pos.y + MMAP_BRDRS));
+			pos.y + MMAP_BRDRS));
 }
 
 static t_color	tile_color(t_map *map, t_lvec pos, t_dvec player)
 {
 	t_lvec	tile;
-	
+
 	tile = lvec_new(pos.x * map->dim.x / MMAP_SIZE,
-		pos.y * map->dim.y / MMAP_SIZE);
+			pos.y * map->dim.y / MMAP_SIZE);
 	if (tile.x == floor(player.x) && tile.y == floor(player.y))
 		return (MMAP_PLAYR);
 	if (map_get(map, tile) == MAP_WALL)

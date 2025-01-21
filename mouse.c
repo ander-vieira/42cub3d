@@ -6,12 +6,11 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:45:02 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:45:57 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:06:31 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <stdio.h>
 
 void	rotate_mouse(t_run *r)
 {
