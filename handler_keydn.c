@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:29:47 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 15:16:14 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:34:05 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	handler_keydn(int keycode, t_run *r)
 	else if (keycode == KEY_A)
 		attempt_move(r, FACE_L);
 	else if (keycode == KEY_LEFT)
-		r->dir = dvec_rot(r->dir, -TURN_ANGLE);
+		r->dir = dvec_rot(r->dir, TRUE);
 	else if (keycode == KEY_RIGHT)
-		r->dir = dvec_rot(r->dir, TURN_ANGLE);
+		r->dir = dvec_rot(r->dir, FALSE);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 00:54:11 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:33:52 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_dvec	dvec_new(double x, double y);
 t_dvec	dvec_add(t_dvec v1, t_dvec v2);
 t_dvec	dvec_scl(t_dvec v, double scale);
 t_dvec	dvec_trn(t_dvec v, t_face face);
-t_dvec	dvec_rot(t_dvec v, double angle);
+t_dvec	dvec_rot(t_dvec v, t_bool reverse);
 
 size_t	str_len(t_str str);
 void	str_copy(t_str dest, t_str src, size_t len);

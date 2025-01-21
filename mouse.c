@@ -6,33 +6,45 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:45:02 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 16:20:10 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:45:57 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <stdio.h>
 
 void	rotate_mouse(t_run *r)
 {
 	int		x;
 	int		y;
-	double	angle;
 
 	if (r->mus.focused)
 	{
 		mlx_mouse_get_pos(r->mlx, r->win, &x, &y);
-		angle = MOUSE_SENS * (x - r->mus.x);
-		r->dir = dvec_rot(r->dir, angle);
+		r->mus.stored_x += x - WIN_W / 2;
+		while (r->mus.stored_x <= -MOUSE_SENS)
+		{
+			r->dir = dvec_rot(r->dir, TRUE);
+			r->mus.stored_x += 2 * MOUSE_SENS;
+		}
+		while (r->mus.stored_x >= MOUSE_SENS)
+		{
+			r->dir = dvec_rot(r->dir, FALSE);
+			r->mus.stored_x -= 2 * MOUSE_SENS;
+		}
 		mlx_mouse_move(r->mlx, r->win, WIN_W / 2, WIN_H / 2);
 	}
 }
 
 int	handler_focusin(t_run *r)
 {
-	r->mus.x = WIN_W / 2;
-	mlx_mouse_get_pos(r->mlx, r->win, &(r->mus.prev_x), &(r->mus.prev_y));
-	mlx_mouse_move(r->mlx, r->win, WIN_W / 2, WIN_H / 2);
-	r->mus.focused = TRUE;
+	if (!r->mus.focused)
+	{
+		r->mus.stored_x = 0;
+		mlx_mouse_get_pos(r->mlx, r->win, &(r->mus.prev_x), &(r->mus.prev_y));
+		mlx_mouse_move(r->mlx, r->win, WIN_W / 2, WIN_H / 2);
+		r->mus.focused = TRUE;
+	}
 	return (0);
 }
 

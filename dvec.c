@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:21:39 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 11:53:00 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:33:44 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ t_dvec	dvec_trn(t_dvec v, t_face face)
 		return (dvec_new(v.y, -v.x));
 }
 
-t_dvec	dvec_rot(t_dvec v, double angle)
+t_dvec	dvec_rot(t_dvec v, t_bool reverse)
 {
-	double	c;
-	double	s;
-
-	c = cos(angle);
-	s = sin(angle);
-	return (dvec_new(v.x * c - v.y * s, v.x * s + v.y * c));
+	if (reverse)
+		return (dvec_new(v.x * TURN_COS + v.y * TURN_SIN,
+			v.y * TURN_COS - v.x * TURN_SIN));
+	else
+		return (dvec_new(v.x * TURN_COS - v.y * TURN_SIN,
+			v.y * TURN_COS + v.x * TURN_SIN));
 }

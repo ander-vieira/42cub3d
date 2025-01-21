@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:51:47 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:14:39 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:49:20 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@
 # define TEX_W		32
 # define TEX_H		32
 
-# define STEP_DIST	0.2
-# define TURN_ANGLE	0.08726646259
 # define WALL_SCALE	300
-# define MOUSE_SENS	0.00436332312
 
-# define MMAP_SIZE	150
+# define STEP_DIST	0.2				//Moving distance per keypress
+# define TURN_COS	0.996194698093	//Turn angle cos (precalculated for speed)
+# define TURN_SIN	0.08715574274	//Turn angle sin (precalculated for speed)
+
+# define MOUSE_SENS	20				//Mouse sensitivity
+
+# define MMAP_SIZE	150				//Minimap size
 # define MMAP_BRDRS	5				//Minimap border size
 # define MMAP_BRDRC	0x00333333		//Minimap border color
-# define MMAP_FLOOR	0x00808080
-# define MMAP_WALL	0x00333333
-# define MMAP_PLAYR	0x00FF0000
+# define MMAP_FLOOR	0x00808080		//Minimap floor tile color
+# define MMAP_WALL	0x00333333		//Minimap wall tile color
+# define MMAP_PLAYR	0x00FF0000		//Minimap player color
 
 typedef enum e_side
 {
@@ -101,8 +104,7 @@ typedef struct s_castc
 typedef struct s_mouse
 {
 	t_bool	focused;
-	int		x;
-	int		y;
+	int		stored_x;
 	int		prev_x;
 	int		prev_y;
 }	t_mouse;
