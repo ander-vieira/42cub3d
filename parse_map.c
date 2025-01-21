@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 09:49:16 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:58:05 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ static t_bool	check_file_extension(t_str file, t_str ext)
 			return (FALSE);
 		i++;
 	}
+	return (TRUE);
+}
+
+static t_bool	init_parse(t_parse *parse, t_str file, t_cubed *cubed)
+{
+	parse->cubed = cubed;
+	parse->is_map = FALSE;
+	parse->map_lines.n = 0;
+	parse->map_lines.strs = NULL;
+	parse->fd = open(file, O_RDONLY);
+	parse->has_n = FALSE;
+	parse->has_e = FALSE;
+	parse->has_s = FALSE;
+	parse->has_w = FALSE;
+	parse->has_f = FALSE;
+	parse->has_c = FALSE;
+	if (parse->fd == -1)
+		return (print_error(NULL), FALSE);
 	return (TRUE);
 }
 
@@ -63,10 +81,13 @@ static t_bool	parse_line(t_parse *parse)
 	if (!parse->is_map && tokens.n == 0)
 		;
 	else if (!parse->is_map && tokens.n == 2 && is_texture(tokens.strs[0]))
-		read_texture(parse->cubed, tokens.strs[0], tokens.strs[1]);
+	{
+		if (!read_texture(parse, tokens.strs[0], tokens.strs[1]))
+			return (strl_free(&tokens), FALSE);
+	}
 	else if (!parse->is_map && tokens.n == 2 && is_color(tokens.strs[0]))
 	{
-		if (!read_color(parse->cubed, tokens.strs[0], tokens.strs[1]))
+		if (!read_color(parse, tokens.strs[0], tokens.strs[1]))
 			return (strl_free(&tokens), FALSE);
 	}
 	else if (!add_map_line(&(parse->map_lines), parse->line, &(parse->is_map)))
@@ -80,13 +101,8 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 
 	if (!check_file_extension(file, FILE_EXTENSION))
 		return (print_error("File extension not valid"), FALSE);
-	parse.cubed = cubed;
-	parse.is_map = FALSE;
-	parse.fd = open(file, O_RDONLY);
-	parse.map_lines.n = 0;
-	parse.map_lines.strs = NULL;
-	if (parse.fd == -1)
-		return (print_error(NULL), FALSE);
+	if (!init_parse(&parse, file, cubed))
+		return (FALSE);
 	while (1)
 	{
 		parse.line = get_line(parse.fd);
@@ -96,6 +112,10 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 			return (free(parse.line), close(parse.fd), FALSE);
 		free(parse.line);
 	}
+	if (!parse.has_n || !parse.has_e || !parse.has_s || !parse.has_w)
+		return (print_error("Missing texture"), close(parse.fd), FALSE);
+	if (!parse.has_f || !parse.has_c)
+		return (print_error("Missing color"), close(parse.fd), FALSE);
 	if (!process_map(&(cubed->map), &(parse.map_lines)))
 		return (close(parse.fd), FALSE);
 	if (!validate_map(cubed))

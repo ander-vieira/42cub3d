@@ -6,11 +6,16 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 12:37:57 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 15:11:52 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:01:44 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+t_bool	is_color(t_str prefix)
+{
+	return (str_cmp(prefix, PREFIX_FLOOR) || str_cmp(prefix, PREFIX_CEILING));
+}
 
 static t_bool	parse_byte(t_str value, size_t *i, t_byte *byte)
 {
@@ -53,20 +58,26 @@ static t_bool	parse_color(t_str value, t_color *color)
 	return (TRUE);
 }
 
-t_bool	is_color(t_str prefix)
+static t_bool	read_color_type(t_color value, t_color *color, t_bool *has)
 {
-	return (str_cmp(prefix, PREFIX_FLOOR) || str_cmp(prefix, PREFIX_CEILING));
+	if (*has)
+		return (print_error("Duplicate color"), FALSE);
+	*color = value;
+	*has = TRUE;
+	return (TRUE);
 }
 
-t_bool	read_color(t_cubed *cubed, t_str prefix, t_str value)
+t_bool	read_color(t_parse *parse, t_str prefix, t_str value)
 {
 	t_color	color;
 
 	if (!parse_color(value, &color))
 		return (print_error("Invalid color"), FALSE);
 	else if (str_cmp(prefix, PREFIX_FLOOR))
-		cubed->color_f = color;
+		return (read_color_type(color,
+				&(parse->cubed->color_f), &(parse->has_f)));
 	else if (str_cmp(prefix, PREFIX_CEILING))
-		cubed->color_c = color;
-	return (TRUE);
+		return (read_color_type(color,
+				&(parse->cubed->color_c), &(parse->has_c)));
+	return (FALSE);
 }

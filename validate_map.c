@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:34:12 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/18 15:37:33 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:05:33 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_bool	validate_map(t_cubed *cubed)
 	valid.ok = TRUE;
 	valid.has_player = FALSE;
 	map_foreach(&(cubed->map), &validate_map_f, &valid);
+	if (!valid.has_player)
+		return (print_error("Missing player"), FALSE);
 	if (!valid.ok)
 		return (FALSE);
 	if (!copy_map(cubed->map, &copy))
