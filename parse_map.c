@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 12:58:05 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:46:44 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,14 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 		free(parse.line);
 	}
 	if (!parse.has_n || !parse.has_e || !parse.has_s || !parse.has_w)
-		return (print_error("Missing texture"), close(parse.fd), FALSE);
+		return (print_error("Missing texture"),
+			strl_free(&(parse.map_lines)), close(parse.fd), FALSE);
 	if (!parse.has_f || !parse.has_c)
-		return (print_error("Missing color"), close(parse.fd), FALSE);
+		return (print_error("Missing color"),
+			strl_free(&(parse.map_lines)), close(parse.fd), FALSE);
 	if (!process_map(&(cubed->map), &(parse.map_lines)))
 		return (close(parse.fd), FALSE);
 	if (!validate_map(cubed))
-		return (close(parse.fd), FALSE);
+		return (map_free(&(cubed->map)), close(parse.fd), FALSE);
 	return (close(parse.fd), TRUE);
 }

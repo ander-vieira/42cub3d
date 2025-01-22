@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:35:06 by andeviei          #+#    #+#             */
-/*   Updated: 2024/12/06 13:25:28 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:43:57 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_img	img_load(void *mlx, char *file)
 	int		h;
 
 	img.i = mlx_xpm_file_to_image(mlx, file, &w, &h);
-	if (w != TEX_W || h != TEX_H)
+	if (img.i != NULL && (w != TEX_W || h != TEX_H))
 		img_free(mlx, &img);
 	load_canvas(&img);
 	return (img);
