@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:08:54 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:58:36 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:40:46 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	load_images(t_run *r)
 	if (r->img_n.i == NULL || r->img_e.i == NULL
 		|| r->img_s.i == NULL || r->img_w.i == NULL)
 	{
-		print_error("Incorrect texture loadin image");
+		print_error("Could not load texture");
 		end_program(r, EXIT_FAILURE);
 	}
 }
