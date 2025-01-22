@@ -6,7 +6,7 @@
 #    By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 22:26:20 by andeviei          #+#    #+#              #
-#    Updated: 2025/01/21 10:41:58 by andeviei         ###   ########.fr        #
+#    Updated: 2025/01/22 19:00:29 by andeviei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ MLX = mlx/libmlx_Linux.a
 
 all: $(NAME)
 
+bonus: $(NAME)
+
 $(NAME): $(MLX) $(SRCS) $(HDRS)
 	gcc $(CFLAGS) $(SRCS) $(MLX) -o $(NAME) -lm -lXext -lX11
 
@@ -63,4 +65,4 @@ re: fclean all
 norm:
 	norminette $(SRCS) $(HDRS)
 
-.PHONY: all clean fclean re norm
+.PHONY: all bonus clean fclean re norm
