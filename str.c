@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 19:27:38 by alex              #+#    #+#             */
-/*   Updated: 2025/01/18 14:52:01 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:40:59 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,24 @@ t_str	str_dup(t_str str)
 	str_copy(dup, str, len);
 	dup[len] = '\0';
 	return (dup);
+}
+
+t_bool	str_ext(t_str file, t_str ext)
+{
+	size_t	file_len;
+	size_t	ext_len;
+	size_t	i;
+
+	file_len = str_len(file);
+	ext_len = str_len(ext);
+	if (file_len <= ext_len)
+		return (FALSE);
+	i = 0;
+	while (i < ext_len)
+	{
+		if (file[file_len - ext_len + i] != ext[i])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }

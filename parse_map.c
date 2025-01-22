@@ -6,31 +6,11 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:07:20 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/22 16:46:44 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:18 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-static t_bool	check_file_extension(t_str file, t_str ext)
-{
-	size_t	file_len;
-	size_t	ext_len;
-	size_t	i;
-
-	file_len = str_len(file);
-	ext_len = str_len(ext);
-	if (file_len <= ext_len)
-		return (FALSE);
-	i = 0;
-	while (i < ext_len)
-	{
-		if (file[file_len - ext_len + i] != ext[i])
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
 
 static t_bool	init_parse(t_parse *parse, t_str file, t_cubed *cubed)
 {
@@ -38,13 +18,17 @@ static t_bool	init_parse(t_parse *parse, t_str file, t_cubed *cubed)
 	parse->is_map = FALSE;
 	parse->map_lines.n = 0;
 	parse->map_lines.strs = NULL;
-	parse->fd = open(file, O_RDONLY);
 	parse->has_n = FALSE;
 	parse->has_e = FALSE;
 	parse->has_s = FALSE;
 	parse->has_w = FALSE;
 	parse->has_f = FALSE;
 	parse->has_c = FALSE;
+	parse->cubed->tex_n = NULL;
+	parse->cubed->tex_e = NULL;
+	parse->cubed->tex_s = NULL;
+	parse->cubed->tex_w = NULL;
+	parse->fd = open(file, O_RDONLY);
 	if (parse->fd == -1)
 		return (print_error(NULL), FALSE);
 	return (TRUE);
@@ -95,11 +79,21 @@ static t_bool	parse_line(t_parse *parse)
 	return (strl_free(&tokens), TRUE);
 }
 
+static void	free_parse(t_parse *parse)
+{
+	free(parse->cubed->tex_n);
+	free(parse->cubed->tex_e);
+	free(parse->cubed->tex_s);
+	free(parse->cubed->tex_w);
+	strl_free(&(parse->map_lines));
+	close(parse->fd);
+}
+
 t_bool	parse_map(t_str file, t_cubed *cubed)
 {
 	t_parse	parse;
 
-	if (!check_file_extension(file, FILE_EXTENSION))
+	if (!str_ext(file, FILE_EXTENSION))
 		return (print_error("File extension not valid"), FALSE);
 	if (!init_parse(&parse, file, cubed))
 		return (FALSE);
@@ -109,18 +103,16 @@ t_bool	parse_map(t_str file, t_cubed *cubed)
 		if (parse.line == NULL)
 			break ;
 		if (!parse_line(&parse))
-			return (free(parse.line), close(parse.fd), FALSE);
+			return (free(parse.line), free_parse(&parse), FALSE);
 		free(parse.line);
 	}
 	if (!parse.has_n || !parse.has_e || !parse.has_s || !parse.has_w)
-		return (print_error("Missing texture"),
-			strl_free(&(parse.map_lines)), close(parse.fd), FALSE);
+		return (print_error("Missing texture"), free_parse(&parse), FALSE);
 	if (!parse.has_f || !parse.has_c)
-		return (print_error("Missing color"),
-			strl_free(&(parse.map_lines)), close(parse.fd), FALSE);
+		return (print_error("Missing color"), free_parse(&parse), FALSE);
 	if (!process_map(&(cubed->map), &(parse.map_lines)))
-		return (close(parse.fd), FALSE);
+		return (free_parse(&parse), FALSE);
 	if (!validate_map(cubed))
-		return (map_free(&(cubed->map)), close(parse.fd), FALSE);
-	return (close(parse.fd), TRUE);
+		return (map_free(&(cubed->map)), free_parse(&parse), FALSE);
+	return (strl_free(&(parse.map_lines)), close(parse.fd), TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:56:26 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 11:33:52 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:41:11 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ size_t	str_len(t_str str);
 void	str_copy(t_str dest, t_str src, size_t len);
 t_bool	str_cmp(t_str str1, t_str str2);
 t_str	str_dup(t_str str);
+t_bool	str_ext(t_str file, t_str ext);
 
 void	strl_free(t_strl *strl);
 t_bool	strl_split(t_strl *strl, t_str str);

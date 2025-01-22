@@ -6,7 +6,7 @@
 /*   By: andeviei <andeviei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:55:46 by andeviei          #+#    #+#             */
-/*   Updated: 2025/01/21 09:49:03 by andeviei         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:34:53 by andeviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	process_map_f(t_map *map, t_lvec pos, void *ptr)
 t_bool	process_map(t_map *map, t_strl *lines)
 {
 	if (!map_init(map, map_dimensions(lines)))
-		return (strl_free(lines), FALSE);
+		return (FALSE);
 	map_foreach(map, &process_map_f, lines);
-	return (strl_free(lines), TRUE);
+	return (TRUE);
 }
